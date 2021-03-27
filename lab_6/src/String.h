@@ -16,7 +16,7 @@ public:
 
     explicit String(char* str) {
         this->length = strlen(str);
-        this->data = new char[this->length + 1];
+        this->data = new char[this->length];
         for (int i = 0; i < this->length; ++i) {
             this->data[i] = str[i];
         }
@@ -32,7 +32,7 @@ public:
 
     String(const String& obj) {
         this->length = obj.length;
-        this->data = new char[obj.length + 1];
+        this->data = new char[obj.length];
         for (int i = 0; i < obj.length; ++i) {
             this->data[i] = obj.data[i];
         }
@@ -49,7 +49,7 @@ public:
 
     virtual String& operator=(char* str) {
         this->length = strlen(str);
-        this->data = new char[this->length + 1];
+        this->data = new char[this->length];
         for (int i = 0; i < this->length; ++i) {
             this->data[i] = str[i];
         }
@@ -60,13 +60,13 @@ public:
 
 class StringId : public String {
 private:
-    static int isIdent(char* str) {
-        if (*str == '\0') return 0;
-        if (isdigit(*str)) return 0;
+    static bool isId(char* str) {
+        if (*str == '\0') return false;
+        if (isdigit(*str)) return false;
         for (int i = 1; *str; str++, i++) {
-            if (!(*str == '_' || isalnum(*str))) return 0;
+            if (!(*str == '_' || isalnum(*str))) return false;
         }
-        return 1;
+        return true;
     }
 
     static void array_shift(char* array, int begin, int end, int shift_count) {
@@ -85,7 +85,14 @@ private:
 
 public:
     explicit StringId(char* str) : String(str) {
-        if (isIdent(str) != 1) {
+        if (!isId(str)) {
+            this->length = 0;
+            this->data = nullptr;
+        }
+    }
+
+    StringId(const StringId& obj) : String(obj) {
+        if (!isId(obj.data)) {
             this->length = 0;
             this->data = nullptr;
         }
@@ -119,9 +126,64 @@ public:
     }
 
     StringId& operator=(char* str) override {
-        if (isIdent(str) == 1) {
+        if (isId(str)) {
             this->length = strlen(str);
             this->data = new char[this->length + 1];
+            for (int i = 0; i < this->length; ++i) {
+                this->data[i] = str[i];
+            }
+            this->data[this->length] = '\0';
+            return *this;
+        } else {
+            this->length = 0;
+            this->data = nullptr;
+            return *this;
+        }
+    }
+};
+
+class StringBin : public String {
+private:
+    static bool isBin(char* str) {
+        for (int i = 0; i < strlen(str); ++i) {
+            if ((str[i] - 48) != 0 && (str[i] - 48) != 1) {
+                return false;
+            }
+        }
+        return true;
+    };
+public:
+    explicit StringBin(char* str) : String() {
+        if (isBin(this->data)) {
+            this->length = 0;
+            this->data = nullptr;
+        }
+    }
+
+    StringBin(const StringBin& obj) : String(obj) {
+        if (!isBin(obj.data)) {
+            this->length = 0;
+            this->data = nullptr;
+        }
+    }
+
+    void Inversion() {
+        int current_symbol_index = 0;
+        while (current_symbol_index + 1 <= this->length / 2) {
+            char temp = this->data[current_symbol_index];
+            this->data[current_symbol_index] = this->data[this->length - current_symbol_index + 1];
+            this->data[this->length - current_symbol_index + 1] = temp;
+        }
+    }
+
+    StringBin& operator-(char* str) {
+
+    }
+
+    StringBin& operator=(char* str) override {
+        if (isBin(str)) {
+            this->length = strlen(str);
+            this->data = new char[this->length];
             for (int i = 0; i < this->length; ++i) {
                 this->data[i] = str[i];
             }
