@@ -249,10 +249,18 @@ private:
         }
         Invert_string(array.data + 1);
         if (array.data[0] == 1) {
-            //инвертировать, циклически прибавить единицу и возвратить
-        } else {
-            return array.data;
+            array.data = Invert_Bin(array.data + 1);
+            for (int i = strlen(array.data) - 1; i > 0; --i) {
+                if (array.data[i] == 48) {
+                    array.data[i] = 49;
+                    for (int j = i; j < strlen(array.data); ++j) {
+                        array.data[j] = 48;
+                    }
+                    return array.data;
+                }
+            }
         }
+        return array.data;
     }
 
 public:
