@@ -248,12 +248,12 @@ private:
             number /= 2;
         }
         Invert_string(array.data + 1);
-        if (array.data[0] == 1) {
+        if (array.data[0] == 49) {
             array.data = Invert_Bin(array.data + 1);
-            for (int i = strlen(array.data) - 1; i > 0; --i) {
+            for (int i = array.size - 1; i > 0; --i) {
                 if (array.data[i] == 48) {
                     array.data[i] = 49;
-                    for (int j = i; j < strlen(array.data); ++j) {
+                    for (int j = i; j < array.size; ++j) {
                         array.data[j] = 48;
                     }
                     return array.data;
@@ -291,7 +291,23 @@ public:
     StringBin& operator-(char* str) {
         int first_number = toDecimal(this->data);
         int second_number = toDecimal(str);
-        this->data = toBin(first_number - second_number);
+        int result_length;
+        this->length > strlen(str) ? result_length = this->length : result_length = strlen(str);
+        char* result = toBin(first_number - second_number);
+        this->length = strlen(result);
+        this->data = new char[this->length];
+        int i;
+        for (i = 0; i < this->length; ++i) {
+            this->data[i] = result[i];
+        }
+        if (this->length < result_length) {
+            while (i < result_length) {
+                this->data[i] = 48;
+                ++i;
+            }
+            this->length = result_length;
+        }
+        this->data[this->length] = '\0';
         return *this;
     }
 
