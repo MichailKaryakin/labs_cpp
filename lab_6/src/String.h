@@ -210,7 +210,7 @@ private:
         return Invert_Bin(str + 1);
     }
 
-    int toDecimal(char* str) {
+    static int toDecimal(char* str) {
         int number = 0;
         int order = 0;
         if (str[0] == 1) {
@@ -236,7 +236,7 @@ private:
         }
     }
 
-    char* toBin(int number) {
+    static char* toBin(int number) {
         Array array = NewArray(5);
         if (number < 0) {
             Add(&array, 49);
