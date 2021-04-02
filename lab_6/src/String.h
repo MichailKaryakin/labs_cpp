@@ -6,16 +6,19 @@
 #include <cmath>
 
 class String {
+    static int copy_constr_num_of_calls;
 protected:
     int length;
     char* data;
 public:
     String() {
+        puts("default constructor used");
         this->length = 0;
         this->data = nullptr;
     }
 
     explicit String(char* str) {
+        puts("constructor with string as a parameter used");
         this->length = strlen(str);
         this->data = new char[this->length];
         for (int i = 0; i < this->length; ++i) {
@@ -25,6 +28,7 @@ public:
     }
 
     explicit String(char symbol) {
+        puts("constructor with symbol as a parameter used");
         this->length = 1;
         this->data = new char[2];
         this->data[0] = symbol;
@@ -32,6 +36,7 @@ public:
     }
 
     String(const String& obj) {
+        printf("copy constructor used, number of calls: %d", ++copy_constr_num_of_calls);
         this->length = obj.length;
         this->data = new char[obj.length];
         for (int i = 0; i < obj.length; ++i) {
@@ -41,14 +46,17 @@ public:
     }
 
     ~String() {
+        puts("destructor used");
         delete[] this->data;
     }
 
     int data_length() const {
+        puts("data length method used");
         return this->length;
     }
 
     virtual String& operator=(char* str) {
+        puts("operator \'=\' override");
         this->length = strlen(str);
         this->data = new char[this->length];
         for (int i = 0; i < this->length; ++i) {
@@ -60,6 +68,7 @@ public:
 };
 
 class StringId : public String {
+    static int copy_constr_num_of_calls;
 private:
     static bool isId(char* str) {
         if (*str == '\0') return false;
@@ -85,7 +94,10 @@ private:
     }
 
 public:
+    StringId() : String() {}
+
     explicit StringId(char* str) : String(str) {
+        puts("StringId constructor with string as a parameter used");
         if (!isId(str)) {
             this->length = 0;
             this->data = nullptr;
@@ -93,13 +105,17 @@ public:
     }
 
     StringId(const StringId& obj) : String(obj) {
+        printf("StringId copy constructor used, number of calls: %d", ++copy_constr_num_of_calls);
         if (!isId(obj.data)) {
             this->length = 0;
             this->data = nullptr;
         }
     }
 
+    ~StringId() = default;
+
     int first_occurrence(const char* symbol) {
+        puts("StringId first occurrence method used");
         int i = 0;
         while (this->data[i] != *symbol) {
             i++;
@@ -107,13 +123,15 @@ public:
         return i;
     }
 
-    void StringId_tolower() {
+    void to_low() {
+        puts("StringId to low method used");
         for (int i = 0; i < this->length; ++i) {
             this->data[i] = tolower(this->data[i]);
         }
     }
 
     StringId& operator-(const char* str) {
+        puts("StringId operator \'-\' override");
         for (int i = 0; i < this->length; ++i) {
             for (int k = 0; k < strlen(str); ++k) {
                 if (this->data[i] == str[k]) {
@@ -127,6 +145,7 @@ public:
     }
 
     StringId& operator=(char* str) override {
+        puts("StringId operator \'=\' override");
         if (isId(str)) {
             this->length = strlen(str);
             this->data = new char[this->length + 1];
@@ -144,6 +163,7 @@ public:
 };
 
 class StringBin : public String {
+    static int copy_constr_num_of_calls;
 private:
     struct Array {
         int size;
@@ -264,7 +284,10 @@ private:
     }
 
 public:
+    StringBin() : String() {}
+
     explicit StringBin(char* str) : String(str) {
+        puts("StringBin constructor with string as a parameter used");
         if (!isBin(this->data)) {
             this->length = 0;
             this->data = nullptr;
@@ -272,13 +295,17 @@ public:
     }
 
     StringBin(const StringBin& obj) : String(obj) {
+        printf("copy constructor used, number of calls: %d", ++copy_constr_num_of_calls);
         if (!isBin(obj.data)) {
             this->length = 0;
             this->data = nullptr;
         }
     }
 
+    ~StringBin() = default;
+
     void Inversion() {
+        puts("StringBin Inversion method used");
         int current_symbol_index = 0;
         while (current_symbol_index + 1 <= this->length / 2) {
             char temp = this->data[current_symbol_index];
@@ -289,6 +316,7 @@ public:
     }
 
     StringBin& operator-(char* str) {
+        puts("StringBin operator \'-\' override");
         int first_number = toDecimal(this->data);
         int second_number = toDecimal(str);
         int result_length;
@@ -312,6 +340,7 @@ public:
     }
 
     StringBin& operator=(char* str) override {
+        puts("StringBin operator \'=\' override");
         if (isBin(str)) {
             this->length = strlen(str);
             this->data = new char[this->length];
