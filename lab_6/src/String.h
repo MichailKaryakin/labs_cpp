@@ -114,10 +114,10 @@ public:
 
     ~StringId() = default;
 
-    int first_occurrence(const char* symbol) {
+    int first_occurrence(const char symbol) {
         puts("StringId first occurrence method used");
         int i = 0;
-        while (this->data[i] != *symbol) {
+        while (this->data[i] != symbol) {
             i++;
         }
         return i;
