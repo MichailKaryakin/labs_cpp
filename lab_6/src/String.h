@@ -11,6 +11,10 @@ protected:
     int length;
     char* data;
 public:
+    void getData() {
+        puts(data);
+    }
+
     String() {
         puts("default constructor used");
         this->length = 0;
