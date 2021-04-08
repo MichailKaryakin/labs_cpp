@@ -169,36 +169,6 @@ public:
 class StringBin : public String {
     static int copy_constr_num_of_calls;
 private:
-    struct Array {
-        int size;
-        int cap;
-        char* data;
-    };
-
-    static Array NewArray(int cap) {
-        Array mas{};
-        mas.cap = cap;
-        mas.size = 0;
-        mas.data = (char*) malloc(mas.cap * sizeof(char));
-        return mas;
-    }
-
-    static void Add(Array* mas, char new_val) {
-        mas->size++;
-        if (mas->size < mas->cap) {
-            mas->data[mas->size] = new_val;
-        } else {
-            char* new_mas = (char*) malloc((mas->cap * 2) * sizeof(char));
-            for (int j = 0; j < mas->size - 1; ++j) {
-                new_mas[j] = mas->data[j];
-            }
-            free(mas->data);
-            mas->data = new_mas;
-            mas->cap = (int) (mas->cap * 2);
-            mas->data[mas->size - 1] = new_val;
-        }
-    }
-
     static bool isBin(char* str) {
         for (int i = 0; i < strlen(str); ++i) {
             if ((str[i] - 48) != 0 && (str[i] - 48) != 1) {
@@ -252,39 +222,44 @@ private:
 
     static void Invert_string(char* str) {
         int current_symbol_index = 0;
-        while (current_symbol_index + 1 <= strlen(str) / 2) {
+        int strLength = strlen(str);
+        while (current_symbol_index < strLength / 2) {
             char temp = str[current_symbol_index];
-            str[current_symbol_index] = str[strlen(str) - current_symbol_index + 1];
-            str[strlen(str) - current_symbol_index + 1] = temp;
+            int invertedIndex = strLength - (current_symbol_index + 1);
+            str[current_symbol_index] = str[invertedIndex];
+            str[invertedIndex] = temp;
             ++current_symbol_index;
         }
     }
 
     static char* toBin(int number) {
-        Array array = NewArray(5);
+        char* array = new char[100];
         if (number < 0) {
-            Add(&array, 49);
+            array[0] = 49;
         } else {
-            Add(&array, 48);
+            array[0] = 48;
         }
+        int i = 1;
         while (number > 0) {
-            Add(&array, number % 2 + 48);
+            array[i] = number % 2 + 48;
             number /= 2;
+            ++i;
         }
-        Invert_string(array.data + 1);
-        if (array.data[0] == 49) {
-            array.data = Invert_Bin(array.data + 1);
-            for (int i = array.size - 1; i > 0; --i) {
-                if (array.data[i] == 48) {
-                    array.data[i] = 49;
-                    for (int j = i; j < array.size; ++j) {
-                        array.data[j] = 48;
+        array[i] = '\0';
+        Invert_string(array + 1);
+        if (array[0] == 49) {
+            array = Invert_Bin(array + 1);
+            for (int j = i; j > 0; --j) {
+                if (array[j] == 48) {
+                    array[j] = 49;
+                    for (int k = j; k < i + 1; ++k) {
+                        array[k] = 48;
                     }
-                    return array.data;
+                    return array;
                 }
             }
         }
-        return array.data;
+        return array;
     }
 
 public:
@@ -323,21 +298,12 @@ public:
         puts("StringBin operator \'-\' override");
         int first_number = toDecimal(this->data);
         int second_number = toDecimal(str);
-        int result_length;
-        this->length > strlen(str) ? result_length = this->length : result_length = strlen(str);
         char* result = toBin(first_number - second_number);
         this->length = strlen(result);
         this->data = new char[this->length];
         int i;
         for (i = 0; i < this->length; ++i) {
             this->data[i] = result[i];
-        }
-        if (this->length < result_length) {
-            while (i < result_length) {
-                this->data[i] = 48;
-                ++i;
-            }
-            this->length = result_length;
         }
         this->data[this->length] = '\0';
         return *this;

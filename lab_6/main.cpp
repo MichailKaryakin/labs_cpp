@@ -45,6 +45,8 @@ int main() {
                         cin >> number_of_elements;
                     }
                     called = true;
+                }  else if (user_choice_1 == 1 && called) {
+                    puts("число элементов уже задано");
                 } else if (user_choice_1 == 2 && called) {
                     int num;
                     bool goUp_1 = false;
@@ -89,6 +91,8 @@ int main() {
                             goUp_1 = true;
                         }
                     }
+                } else if (user_choice_1 == 2 && !called) {
+                    puts("задайте число элементов");
                 } else if (user_choice_1 == 3) {
                     goUp = true;
                 }
@@ -126,11 +130,14 @@ int main() {
                             fflush(stdin);
                             puts("введите новую строку");
                             *array[test_num] = gets(test_string);
+                            puts("результат:");
                             array[test_num]->getData();
                         } else if (user_choice_2_1 == 3) {
                             goUp_1 = true;
                         }
                     }
+                } else if (user_choice_2 == 1 && !called) {
+                    puts("задайте операнды");
                 } else if (user_choice_2 == 2 && called) {
                     bool goUp_2 = false;
                     while (!goUp_2) {
@@ -148,6 +155,7 @@ int main() {
                             fflush(stdin);
                             puts("введите новую строку");
                             *array[test_num] = gets(test_string);
+                            puts("результат:");
                             array[test_num]->getData();
                         } else if (user_choice_2_2 == 2) {
                             String* virtualCall = array[test_num];
@@ -166,6 +174,7 @@ int main() {
                             String* virtualCall = array[test_num];
                             auto* childCall = (StringId*) virtualCall;
                             childCall->to_low();
+                            puts("результат:");
                             childCall->getData();
                         } else if (user_choice_2_2 == 4) {
                             String* virtualCall = array[test_num];
@@ -175,11 +184,14 @@ int main() {
                             fflush(stdin);
                             gets(string);
                             *childCall - string;
+                            puts("результат:");
                             childCall->getData();
                         } else if (user_choice_2_2 == 5) {
                             goUp_2 = true;
                         }
                     }
+                } else if (user_choice_2 == 2 && !called) {
+                    puts("задайте операнды");
                 } else if (user_choice_2 == 3 && called) {
                     bool goUp_3 = false;
                     while (!goUp_3) {
@@ -197,11 +209,13 @@ int main() {
                             fflush(stdin);
                             puts("введите новую строку");
                             *array[test_num] = gets(test_string);
+                            puts("результат:");
                             array[test_num]->getData();
                         } else if (user_choice_2_3 == 2) {
                             String* virtualCall = array[test_num];
                             auto* childCall = (StringBin*) virtualCall;
                             childCall->Inversion();
+                            puts("результат:");
                             childCall->getData();
                         } else if (user_choice_2_3 == 3) {
                             String* virtualCall = array[test_num];
@@ -211,11 +225,14 @@ int main() {
                             fflush(stdin);
                             gets(string);
                             *childCall - string;
+                            puts("результат:");
                             childCall->getData();
                         } else if (user_choice_2_3 == 4) {
                             goUp_3 = true;
                         }
                     }
+                } else if (user_choice_2 == 3 && !called) {
+                    puts("задайте операнды");
                 } else if (user_choice_2 == 4) {
                     called = true;
                     puts("введите номер объекта, над которым будет производиться тестирование:");
