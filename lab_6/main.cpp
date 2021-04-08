@@ -1,12 +1,13 @@
 #include <iostream>
-#include <vector>
+#include <windows.h>
 #include "cstdio"
 #include "src/String.h"
 
 using namespace std;
 
 int main() {
-    system("chcp 65001");
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
     String* array[6] = {nullptr};
     static int number_of_elements;
     bool exit = false;
@@ -45,7 +46,7 @@ int main() {
                         cin >> number_of_elements;
                     }
                     called = true;
-                }  else if (user_choice_1 == 1 && called) {
+                } else if (user_choice_1 == 1 && called) {
                     puts("число элементов уже задано");
                 } else if (user_choice_1 == 2 && called) {
                     int num;
@@ -154,7 +155,7 @@ int main() {
                             char test_string[100];
                             fflush(stdin);
                             puts("введите новую строку");
-                            *array[test_num] = gets(test_string);
+                            *array[test_num] = gets(test_string);;
                             puts("результат:");
                             array[test_num]->getData();
                         } else if (user_choice_2_2 == 2) {
@@ -169,7 +170,7 @@ int main() {
                                 cin.sync();
                                 cin >> symbol;
                             }
-                            printf("первое вхождение введённого символа: %d", childCall->first_occurrence(symbol));
+                            printf("первое вхождение введённого символа: %d\n", childCall->first_occurrence(symbol));
                         } else if (user_choice_2_2 == 3) {
                             String* virtualCall = array[test_num];
                             auto* childCall = (StringId*) virtualCall;
@@ -248,6 +249,8 @@ int main() {
                     goUp = true;
                 }
             }
+        } else if (user_choice == 2 && !called_init) {
+            puts("выполните инициализацию");
         } else if (user_choice == 3) {
             exit = true;
         }
