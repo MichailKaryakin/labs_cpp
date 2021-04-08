@@ -124,7 +124,7 @@ public:
         while (this->data[i] != symbol) {
             i++;
         }
-        return i;
+        return i + 1;
     }
 
     void to_low() {
@@ -141,6 +141,8 @@ public:
                 if (this->data[i] == str[k]) {
                     array_shift(this->data, i + 1, this->length - 1, -1);
                     i--;
+                    --this->length;
+                    this->data[this->length] = '\0';
                     break;
                 }
             }
