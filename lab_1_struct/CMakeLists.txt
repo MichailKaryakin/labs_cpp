@@ -3,4 +3,4 @@ project(lab_1_struct)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(lab_1_struct first_task.cpp second_task.cpp)
+add_executable(lab_1_struct first_task.cpp)

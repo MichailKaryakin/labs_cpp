@@ -82,6 +82,11 @@ int main() {
                             puts("начальное значение:");
                             fflush(stdin);
                             gets(temp_array);
+                            while(!array[num - 1]->Check(temp_array)) {
+                                puts("попробуйте снова:");
+                                fflush(stdin);
+                                gets(temp_array);
+                            }
                             array[num - 1] = new StringId(temp_array);
                             goUp_1 = true;
                         } else if (user_choice_1_2 == 3) {
@@ -89,6 +94,11 @@ int main() {
                             puts("начальное значение:");
                             fflush(stdin);
                             gets(temp_array);
+                            while(!array[num - 1]->Check(temp_array)) {
+                                puts("попробуйте снова:");
+                                fflush(stdin);
+                                gets(temp_array);
+                            }
                             array[num - 1] = new StringBin(temp_array);
                             goUp_1 = true;
                         }
@@ -156,7 +166,13 @@ int main() {
                             char test_string[100];
                             fflush(stdin);
                             puts("введите новую строку");
-                            *array[test_num] = gets(test_string);;
+                            gets(test_string);
+                            while(!array[test_num]->Check(test_string)) {
+                                puts("попробуйте снова:");
+                                fflush(stdin);
+                                gets(test_string);
+                            }
+                            *array[test_num] = test_string;
                             puts("результат:");
                             array[test_num]->getData();
                         } else if (user_choice_2_2 == 2) {
@@ -209,8 +225,14 @@ int main() {
                         if (user_choice_2_3 == 1) {
                             char test_string[100];
                             fflush(stdin);
-                            puts("введите новую строку");
-                            *array[test_num] = gets(test_string);
+                            puts("введите новую строку:");
+                            gets(test_string);
+                            while(!array[test_num]->Check(test_string)) {
+                                puts("попробуйте снова:");
+                                fflush(stdin);
+                                gets(test_string);
+                            }
+                            *array[test_num] = test_string;
                             puts("результат:");
                             array[test_num]->getData();
                         } else if (user_choice_2_3 == 2) {

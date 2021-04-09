@@ -11,8 +11,18 @@ protected:
     int length;
     char* data;
 public:
+    virtual bool Check(char* str) {
+        return true;
+    }
+
     void getData() {
-        puts(this->data);
+        char string[100];
+        int i;
+        for (i = 0; i < this->length; ++i) {
+            string[i] = this->data[this->length];
+        }
+        string[i] = '\0';
+        puts(string);
     }
 
     String() {
@@ -98,6 +108,14 @@ private:
     }
 
 public:
+    bool Check (char* str) override {
+        if (isId(str)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     StringId() : String() {}
 
     explicit StringId(char* str) : String(str) {
@@ -265,6 +283,14 @@ private:
     }
 
 public:
+    bool Check(char* str) override {
+        if (isBin(str)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     StringBin() : String() {}
 
     explicit StringBin(char* str) : String(str) {
