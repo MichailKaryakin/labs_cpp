@@ -11,18 +11,8 @@ protected:
     int length;
     char* data;
 public:
-    virtual bool Check(char* str) {
-        return true;
-    }
-
-    void getData() {
-        char string[100];
-        int i;
-        for (i = 0; i < this->length; ++i) {
-            string[i] = this->data[this->length];
-        }
-        string[i] = '\0';
-        puts(string);
+    virtual void getData() {
+        puts(this->data);
     }
 
     String() {
@@ -108,12 +98,8 @@ private:
     }
 
 public:
-    bool Check (char* str) override {
-        if (isId(str)) {
-            return true;
-        } else {
-            return false;
-        }
+    void getData() override {
+        puts(this->data);
     }
 
     StringId() : String() {}
@@ -196,7 +182,7 @@ private:
             }
         }
         return true;
-    };
+    }
 
     static char* Invert_Bin(char* str) {
         for (int j = 1; j < strlen(str); ++j) {
@@ -206,7 +192,7 @@ private:
                 str[j] = 48;
             }
         }
-        return str - 1;
+        return str;
     }
 
     static char* toStraight(char* str) {
@@ -283,12 +269,8 @@ private:
     }
 
 public:
-    bool Check(char* str) override {
-        if (isBin(str)) {
-            return true;
-        } else {
-            return false;
-        }
+    void getData() override {
+        puts(this->data);
     }
 
     StringBin() : String() {}
@@ -313,13 +295,7 @@ public:
 
     void Inversion() {
         puts("StringBin Inversion method used");
-        int current_symbol_index = 0;
-        while (current_symbol_index + 1 <= this->length / 2) {
-            char temp = this->data[current_symbol_index];
-            this->data[current_symbol_index] = this->data[this->length - current_symbol_index + 1];
-            this->data[this->length - current_symbol_index + 1] = temp;
-            ++current_symbol_index;
-        }
+        this->data = Invert_Bin(this->data);
     }
 
     StringBin& operator-(char* str) {

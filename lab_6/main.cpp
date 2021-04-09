@@ -5,6 +5,24 @@
 
 using namespace std;
 
+static bool isId(char* str) {
+    if (*str == '\0') return false;
+    if (isdigit(*str)) return false;
+    for (int i = 1; *str; str++, i++) {
+        if (!(*str == '_' || isalnum(*str))) return false;
+    }
+    return true;
+}
+
+static bool isBin(char* str) {
+    for (int i = 0; i < strlen(str); ++i) {
+        if ((str[i] - 48) != 0 && (str[i] - 48) != 1) {
+            return false;
+        }
+    }
+    return true;
+}
+
 int main() {
     setlocale(LC_ALL, "Russian");
     SetConsoleCP(1251);
@@ -82,7 +100,7 @@ int main() {
                             puts("начальное значение:");
                             fflush(stdin);
                             gets(temp_array);
-                            while(!array[num - 1]->Check(temp_array)) {
+                            while(!isId(temp_array)) {
                                 puts("попробуйте снова:");
                                 fflush(stdin);
                                 gets(temp_array);
@@ -94,7 +112,7 @@ int main() {
                             puts("начальное значение:");
                             fflush(stdin);
                             gets(temp_array);
-                            while(!array[num - 1]->Check(temp_array)) {
+                            while(!isBin(temp_array)) {
                                 puts("попробуйте снова:");
                                 fflush(stdin);
                                 gets(temp_array);
@@ -167,7 +185,7 @@ int main() {
                             fflush(stdin);
                             puts("введите новую строку");
                             gets(test_string);
-                            while(!array[test_num]->Check(test_string)) {
+                            while(!isId(test_string)) {
                                 puts("попробуйте снова:");
                                 fflush(stdin);
                                 gets(test_string);
@@ -227,7 +245,7 @@ int main() {
                             fflush(stdin);
                             puts("введите новую строку:");
                             gets(test_string);
-                            while(!array[test_num]->Check(test_string)) {
+                            while(!isBin(test_string)) {
                                 puts("попробуйте снова:");
                                 fflush(stdin);
                                 gets(test_string);
