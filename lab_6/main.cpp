@@ -6,8 +6,9 @@
 using namespace std;
 
 int main() {
+    setlocale(LC_ALL, "Russian");
     SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
+    SetConsoleOutputCP(CP_UTF8);
     String* array[6] = {nullptr};
     static int number_of_elements;
     bool exit = false;

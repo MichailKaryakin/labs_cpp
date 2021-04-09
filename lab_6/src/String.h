@@ -12,7 +12,7 @@ protected:
     char* data;
 public:
     void getData() {
-        puts(data);
+        puts(this->data);
     }
 
     String() {
