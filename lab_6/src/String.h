@@ -185,7 +185,7 @@ private:
     }
 
     static char* Invert_Bin(char* str) {
-        for (int j = 1; j < strlen(str); ++j) {
+        for (int j = 0; j < strlen(str); ++j) {
             if (str[j] == 48) {
                 str[j] = 49;
             } else {
@@ -213,14 +213,14 @@ private:
     static int toDecimal(char* str) {
         int number = 0;
         int order = 0;
-        if (str[0] == 1) {
+        if (str[0] == 49) {
             str = toStraight(str);
         }
         for (int i = strlen(str) - 1; i > 0; --i) {
             number += (str[i] - 48) * (int) pow(2, order);
             ++order;
         }
-        if (str[0] == 1) {
+        if (str[0] == 49) {
             number = -number;
         }
         return number;
@@ -295,7 +295,7 @@ public:
 
     void Inversion() {
         puts("StringBin Inversion method used");
-        this->data = Invert_Bin(this->data);
+        this->data = Invert_Bin(this->data + 1);
     }
 
     StringBin& operator-(char* str) {

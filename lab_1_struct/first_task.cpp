@@ -137,7 +137,7 @@ void search(list cur) {
             }
             cur = cur->next;
         }
-        printf("%d\n", number_of_nonresidents);
+        printf("number of nonresidents: %d\n", number_of_nonresidents);
     }
     if (user_choice == 2) {
         while (cur) {
@@ -167,13 +167,17 @@ list delete_node(list begin) {
     return begin;
 }
 
-int main() {
-    char file[50];
+int main(int argc, char* argv[]) {
+    list clients = nullptr;
+    char file[10] = {"file.txt\0"};
+    char* filename = argv[1];
+    if (filename == NULL) {
+        clients = read_file(file);
+        filename = file;
+    } else {
+        clients = read_file(filename);
+    }
     char menu;
-    list clients = NULL;
-    puts("Enter the file name");
-    gets(file);
-    clients = read_file(file);
     do {
         puts("1. Insert");
         puts("2. Show");
@@ -196,7 +200,7 @@ int main() {
                 clients = delete_node(clients);
         }
     } while (menu != '5');
-    if (write_file(file, clients))
+    if (write_file(filename, clients))
         puts("File saved");
     else
         puts("File not saved");
