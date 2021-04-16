@@ -264,6 +264,7 @@ int main() {
                             auto* childCall = (StringBin*) virtualCall;
                             char string[20];
                             puts("введите битовую строку:");
+                            puts("числа в доп. коде: 9 цифр, первая - знак");
                             fflush(stdin);
                             gets(string);
                             *childCall - string;

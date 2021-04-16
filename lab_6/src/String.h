@@ -5,14 +5,33 @@
 #include <cctype>
 #include <cmath>
 
+void printString(char* str) {
+    for (int i = 0; i < strlen(str); ++i) {
+        printf("%c", str[i] - 300);
+    }
+    std::cout << "\n";
+}
+
 class String {
     static int copy_constr_num_of_calls;
 protected:
     int length;
     char* data;
 public:
-    virtual void getData() {
-        puts(this->data);
+    virtual bool Check(char* str) {
+        return true;
+    }
+
+    friend void printString(char* str);
+
+    void getData() {
+        for (int i = 0; i < this->length; ++i) {
+            this->data[i] = this->data[i] + 300;
+        }
+        printString(this->data);
+        for (int i = 0; i < this->length; ++i) {
+            this->data[i] = this->data[i] - 300;
+        }
     }
 
     String() {
@@ -98,8 +117,12 @@ private:
     }
 
 public:
-    void getData() override {
-        puts(this->data);
+    bool Check(char* str) override {
+        if (isId(str)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     StringId() : String() {}
@@ -125,7 +148,7 @@ public:
     int first_occurrence(const char symbol) {
         puts("StringId first occurrence method used");
         int i = 0;
-        while (this->data[i] != symbol && i < this->length) {
+        while (this->data[i] != symbol) {
             i++;
         }
         return i + 1;
@@ -182,7 +205,7 @@ private:
             }
         }
         return true;
-    }
+    };
 
     static char* Invert_Bin(char* str) {
         for (int j = 0; j < strlen(str); ++j) {
@@ -192,7 +215,7 @@ private:
                 str[j] = 48;
             }
         }
-        return str;
+        return str - 1;
     }
 
     static char* toStraight(char* str) {
@@ -269,8 +292,12 @@ private:
     }
 
 public:
-    void getData() override {
-        puts(this->data);
+    bool Check(char* str) override {
+        if (isBin(str)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     StringBin() : String() {}
@@ -295,7 +322,13 @@ public:
 
     void Inversion() {
         puts("StringBin Inversion method used");
-        this->data = Invert_Bin(this->data + 1);
+        int current_symbol_index = 0;
+        while (current_symbol_index + 1 <= this->length / 2) {
+            char temp = this->data[current_symbol_index];
+            this->data[current_symbol_index] = this->data[this->length - current_symbol_index + 1];
+            this->data[this->length - current_symbol_index + 1] = temp;
+            ++current_symbol_index;
+        }
     }
 
     StringBin& operator-(char* str) {
