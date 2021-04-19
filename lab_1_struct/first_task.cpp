@@ -7,7 +7,7 @@ using namespace std;
 
 int user_choice;
 
-typedef struct person {
+typedef struct person { //структура с необходимыми полями
     char surname[20];
     char sex[5];
     int age;
@@ -15,14 +15,14 @@ typedef struct person {
     char diagnosis[15];
 } DataType;
 
-struct node {
+struct node { //реализация связного списка
     DataType data;
     struct node* next;
 };
 
 typedef struct node* list;
 
-DataType input_client() {
+DataType input_client() { //ввод записи в структуру
     DataType client;
     fflush(stdin);
     puts("surname");
@@ -42,14 +42,14 @@ DataType input_client() {
     return client;
 }
 
-list new_node(list begin, DataType person) {
+list new_node(list begin, DataType person) { //функция добавления записи
     list temp = (list) malloc(sizeof(struct node));
     temp->data = person;
     temp->next = begin;
     return temp;
 }
 
-list read_file(char* filename) {
+list read_file(char* filename) { //считывание файла в список
     FILE* f;
     DataType client;
     list begin = NULL, cur;
@@ -71,7 +71,7 @@ list read_file(char* filename) {
     return begin;
 }
 
-void delete_list(list begin) {
+void delete_list(list begin) { //функция удаления списка
     list temp = begin;
     while (temp) {
         begin = temp->next;
@@ -80,7 +80,7 @@ void delete_list(list begin) {
     }
 }
 
-bool write_file(char* filename, list begin) {
+bool write_file(char* filename, list begin) { //запись списка в файл
     FILE* f;
     if ((f = fopen(filename, "wb")) == NULL) {
         perror("Error create file");
@@ -96,12 +96,12 @@ bool write_file(char* filename, list begin) {
     return true;
 }
 
-void print_data(struct person person) {
+void print_data(DataType person) { //вывод записи
     printf("surname : %s\nsex : %s\nage : %d\ncity : %s\ndiagnosis : %s\n", person.surname,
            person.sex, person.age, person.city, person.diagnosis);
 }
 
-void show(list cur) {
+void show(list cur) { //вывод всех записей в виде таблицы
     int k = 0;
     if (cur == NULL) {
         puts("List is empty");
@@ -117,7 +117,7 @@ void show(list cur) {
     puts("--------------------------------------------------------------------------");
 }
 
-void search(list cur) {
+void search(list cur) { //поиск в соответствии с заданием
     if (cur == NULL) {
         puts("List is empty");
         return;
@@ -156,7 +156,7 @@ void search(list cur) {
     }
 }
 
-list delete_node(list begin) {
+list delete_node(list begin) { //удаление записи
     struct node* temp;
     if (begin) {
         temp = begin;
@@ -168,7 +168,7 @@ list delete_node(list begin) {
 }
 
 int main(int argc, char* argv[]) {
-    list clients = nullptr;
+    list clients = nullptr; //определение названия файла
     char file[10] = {"file.txt\0"};
     char* filename = argv[1];
     if (filename == NULL) {
@@ -178,7 +178,7 @@ int main(int argc, char* argv[]) {
         clients = read_file(filename);
     }
     char menu;
-    do {
+    do { //меню
         puts("1. Insert");
         puts("2. Show");
         puts("3. Search");
@@ -200,11 +200,11 @@ int main(int argc, char* argv[]) {
                 clients = delete_node(clients);
         }
     } while (menu != '5');
-    if (write_file(filename, clients))
+    if (write_file(filename, clients)) //вывод сообщения пользователю о результате сохранения файла
         puts("File saved");
     else
         puts("File not saved");
-    delete_list(clients);
+    delete_list(clients); //список удаляется
     return 0;
 }
 
