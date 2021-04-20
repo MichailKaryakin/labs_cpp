@@ -5,33 +5,18 @@
 #include <cctype>
 #include <cmath>
 
-void printString(char* str) {
-    for (int i = 0; i < strlen(str); ++i) {
-        printf("%c", str[i] - 300);
-    }
-    std::cout << "\n";
-}
-
 class String {
     static int copy_constr_num_of_calls;
 protected:
     int length;
     char* data;
 public:
-    virtual bool Check(char* str) {
-        return true;
-    }
-
-    friend void printString(char* str);
+//    virtual bool Check(char* str) {
+//        return true;
+//    }
 
     void getData() {
-        for (int i = 0; i < this->length; ++i) {
-            this->data[i] = this->data[i] + 300;
-        }
-        printString(this->data);
-        for (int i = 0; i < this->length; ++i) {
-            this->data[i] = this->data[i] - 300;
-        }
+        puts(this->data);
     }
 
     String() {
@@ -68,7 +53,7 @@ public:
         this->data[obj.length] = '\0';
     }
 
-    ~String() {
+    virtual ~String() {
         puts("destructor used");
         delete[] this->data;
     }
@@ -117,13 +102,13 @@ private:
     }
 
 public:
-    bool Check(char* str) override {
-        if (isId(str)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+//    bool Check(char* str) override {
+//        if (isId(str)) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
     StringId() : String() {}
 
@@ -143,12 +128,12 @@ public:
         }
     }
 
-    ~StringId() = default;
+    ~StringId() override = default;
 
     int first_occurrence(const char symbol) {
         puts("StringId first occurrence method used");
         int i = 0;
-        while (this->data[i] != symbol) {
+        while (this->data[i] != symbol && i < this->length) {
             i++;
         }
         return i + 1;
@@ -292,13 +277,13 @@ private:
     }
 
 public:
-    bool Check(char* str) override {
-        if (isBin(str)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+//    bool Check(char* str) override {
+//        if (isBin(str)) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
     StringBin() : String() {}
 
@@ -318,17 +303,10 @@ public:
         }
     }
 
-    ~StringBin() = default;
+    ~StringBin() override = default;
 
     void Inversion() {
-        puts("StringBin Inversion method used");
-        int current_symbol_index = 0;
-        while (current_symbol_index + 1 <= this->length / 2) {
-            char temp = this->data[current_symbol_index];
-            this->data[current_symbol_index] = this->data[this->length - current_symbol_index + 1];
-            this->data[this->length - current_symbol_index + 1] = temp;
-            ++current_symbol_index;
-        }
+        Invert_Bin(this->data);
     }
 
     StringBin& operator-(char* str) {
