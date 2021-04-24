@@ -1,10 +1,14 @@
 #include <iostream>
+#include <windows.h>
 #include "src/GraphList.h"
 #include "src/GraphArray.h"
 
 int main() {
+    setlocale(LC_ALL, "Russian");
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(CP_UTF8);
     int user_choice;
-    cout << "1 - список смежности, 2 - матрица смежности";
+    cout << "1 - список смежности, 2 - матрица смежности" << "\n";
     cin >> user_choice;
     if (user_choice == 1) {
         GraphList graph;
