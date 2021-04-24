@@ -1,6 +1,6 @@
 #pragma once
 
-#include "src/node.h"
+#include "node.h"
 #include <iostream>
 #include <fstream>
 #include <set>
@@ -62,7 +62,7 @@ private:
 
 public:
     GraphList() {
-        ifstream fin("graph.txt");
+        ifstream fin("Testing/graph.txt");
         string temp;
         getline(fin, temp);
         int number = 0;

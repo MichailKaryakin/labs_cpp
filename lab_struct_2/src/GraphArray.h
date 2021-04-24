@@ -37,7 +37,7 @@ private:
 
 public:
     GraphArray() {
-        ifstream fin("graph.txt");
+        ifstream fin("Testing/graph.txt");
         string temp;
         getline(fin, temp);
         int number = 0;
