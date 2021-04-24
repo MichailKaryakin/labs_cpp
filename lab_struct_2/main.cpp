@@ -1,30 +1,46 @@
 #include <iostream>
 #include "src/GraphList.h"
-
-#define num_of_cities 4
+#include "src/GraphArray.h"
 
 int main() {
-    int n = num_of_cities;
-    Graph graph(n);
-    int dist[n];
+    int user_choice;
+    cout << "1 - список смежности, 2 - матрица смежности";
+    cin >> user_choice;
+    if (user_choice == 1) {
+        GraphList graph;
+        int n = graph.getVerticesNum();
+        int dist[n];
 
-    graph.addEdge(0, 1, 44);
-    graph.addEdge(0, 2, 44);
-    graph.addEdge(0, 3, 44);
-    graph.addEdge(2, 0, 44);
-    graph.addEdge(3, 0, 44);
-
-    for (int i = 0; i < n; i++) {
-        graph.Search(dist, i);
-        bool check = true;
-        for (int j : dist) {
-            if (j > 100) {
-                check = false;
-                break;
+        for (int i = 0; i < n; i++) {
+            graph.Search(dist, i);
+            bool check = true;
+            for (int j : dist) {
+                if (j > 100) {
+                    check = false;
+                    break;
+                }
+            }
+            if (check) {
+                printf("from city %d there is a path less than 100 km to any other city\n", i);
             }
         }
-        if (check) {
-            printf("from city %d there is a path less than 100 km to any other city\n", i);
+    } else if (user_choice == 2) {
+        GraphArray graph;
+        int n = graph.getVerticesNum();
+        int dist[n];
+
+        for (int i = 0; i < n; i++) {
+            graph.Search(dist, i);
+            bool check = true;
+            for (int j : dist) {
+                if (j > 100) {
+                    check = false;
+                    break;
+                }
+            }
+            if (check) {
+                printf("from city %d there is a path less than 100 km to any other city\n", i);
+            }
         }
     }
 }

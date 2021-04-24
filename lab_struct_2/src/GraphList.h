@@ -1,18 +1,17 @@
 #pragma once
 
+#include "src/node.h"
 #include <iostream>
+#include <fstream>
 #include <set>
 #include <list>
+#include <vector>
 #include <algorithm>
+#include "cstring"
 
 using namespace std;
 
-typedef struct nodes {
-    int dest;
-    int cost;
-} node;
-
-class Graph {
+class GraphList {
     int vertices_num;
     list <node>* adjList;
 private:
@@ -47,21 +46,11 @@ private:
 
             list<node>::iterator it;
             for (it = this->adjList[min_index].begin(); it != this->adjList[min_index].end(); it++) {
-                if ((dist[min_index]+(it->cost)) < dist[it->dest]) {
-                    dist[it->dest] = (dist[min_index]+(it->cost));
+                if ((dist[min_index] + (it->cost)) < dist[it->dest]) {
+                    dist[it->dest] = (dist[min_index] + (it->cost));
                 }
             }
         }
-    }
-
-public:
-    Graph() {
-        vertices_num = 0;
-    }
-
-    Graph(int nodeCount) {
-        vertices_num = nodeCount;
-        adjList = new list<node>[vertices_num];
     }
 
     void addEdge(int source, int dest, int cost) {
@@ -69,6 +58,50 @@ public:
         newNode.dest = dest;
         newNode.cost = cost;
         adjList[source].push_back(newNode);
+    }
+
+public:
+    GraphList() {
+        ifstream fin("graph.txt");
+        string temp;
+        getline(fin, temp);
+        int number = 0;
+        int order = 1;
+        for (char i : temp) {
+            number += (i - 48) * order;
+            order *= 10;
+        }
+        number = 0;
+        order = 1;
+        this->vertices_num = number;
+        temp.clear();
+        while (getline(fin, temp)) {
+            int num_of_spaces = 0;
+            int first_index, second_index;
+            for (char i : temp) {
+                if (i == ' ') {
+                    number = 0;
+                    order = 1;
+                    ++num_of_spaces;
+                    continue;
+                }
+                number += (i - 48) * order;
+                order *= 10;
+                if (num_of_spaces == 0) {
+                    first_index = number;
+                } else if (num_of_spaces == 1) {
+                    second_index = number;
+                } else if (num_of_spaces == 2) {
+                    this->addEdge(first_index, second_index, number);
+                }
+            }
+            temp.clear();
+        }
+        fin.close();
+    }
+
+    int getVerticesNum() const {
+        return this->vertices_num;
     }
 
     void Search(int* dist, int start) {
