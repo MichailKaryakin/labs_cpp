@@ -16,24 +16,23 @@ class GraphList {
     list <node>* adjList;
 private:
     void dijkstra(int* dist, int start) {
-        int verticesNum = this->vertices_num;
+        int i, k;
 
-        for (int u = 0; u < verticesNum; u++) {
-            dist[u] = 9999;
+        for (k = 0; k < this->vertices_num; ++k) {
+            dist[k] = 9999;
         }
         dist[start] = 0;
 
         list<int> elements;
-        for (int u = 0; u < verticesNum; u++) {
-            elements.push_back(u);
+        for (k = 0; k < this->vertices_num; ++k) {
+            elements.push_back(k);
         }
 
         set<int> set;
         while (!elements.empty()) {
             int min = INT_MAX;
             int min_index;
-            int i;
-            for (i = 0; i < verticesNum; ++i) {
+            for (i = 0; i < this->vertices_num; ++i) {
                 bool is_in_set = set.find(i) != set.end();
                 if (dist[i] < min && !is_in_set) {
                     min = dist[i];
@@ -45,7 +44,7 @@ private:
             elements.remove(min_index);
 
             list<node>::iterator it;
-            for (it = this->adjList[min_index].begin(); it != this->adjList[min_index].end(); it++) {
+            for (it = this->adjList[min_index].begin(); it != this->adjList[min_index].end(); ++it) {
                 if ((dist[min_index] + (it->cost)) < dist[it->dest]) {
                     dist[it->dest] = (dist[min_index] + (it->cost));
                 }
@@ -71,14 +70,21 @@ public:
             number += (i - 48) * order;
             order *= 10;
         }
+        this->vertices_num = number;
         number = 0;
         order = 1;
-        this->vertices_num = number;
         temp.clear();
+        this->adjList = new list<node>[this->vertices_num];
         while (getline(fin, temp)) {
             int num_of_spaces = 0;
             int first_index, second_index;
             for (char i : temp) {
+                if (i == ';') {
+                    this->addEdge(first_index, second_index, number);
+                    number = 0;
+                    order = 1;
+                    break;
+                }
                 if (i == ' ') {
                     number = 0;
                     order = 1;
@@ -91,8 +97,6 @@ public:
                     first_index = number;
                 } else if (num_of_spaces == 1) {
                     second_index = number;
-                } else if (num_of_spaces == 2) {
-                    this->addEdge(first_index, second_index, number);
                 }
             }
             temp.clear();
@@ -105,6 +109,6 @@ public:
     }
 
     void Search(int* dist, int start) {
-        dijkstra(dist, start);
+        this->dijkstra(dist, start);
     }
 };

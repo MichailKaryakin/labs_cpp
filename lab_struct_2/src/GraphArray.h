@@ -15,24 +15,38 @@ class GraphArray {
     int** adjMatrix;
 private:
     void dijkstra(int* dist, int start) {
-        int i, v, w, S[5] = {0};
-        S[start] = 1;
-        for (i = 0; i < this->vertices_num; i++) {
-            dist[i] = this->adjMatrix[start][i];
+        int i, k;
+        for (k = 0; k < this->vertices_num; ++k) {
+            dist[k] = 9999;
         }
-        dist[start] = 9999;
-        for (i = 2; i < this->vertices_num; i++) {
-            for (w = start, v = 0; v < vertices_num; v++) {
-                if (!S[v] && dist[v] < dist[w]) w = v;
+        dist[start] = 0;
+
+        list<int> elements;
+        for (k = 0; k < this->vertices_num; ++k) {
+            elements.push_back(k);
+        }
+
+        set<int> set;
+        while (!elements.empty()) {
+            int min = INT_MAX;
+            int min_index;
+            for (i = 0; i < this->vertices_num; ++i) {
+                bool is_in_set = set.find(i) != set.end();
+                if (dist[i] < min && !is_in_set) {
+                    min = dist[i];
+                    min_index = i;
+                }
             }
-            S[w] = 1;
-            for (v = 0; v < vertices_num; v++) {
-                if (dist[w] + this->adjMatrix[w][v] < dist[v]) {
-                    dist[v] = dist[w] + this->adjMatrix[w][v];
+            set.insert(min_index);
+
+            elements.remove(min_index);
+
+            for (i = 0; i < this->vertices_num; ++i) {
+                if ((dist[min_index] + adjMatrix[min_index][i]) < dist[i]) {
+                    dist[i] = (dist[min_index] + adjMatrix[min_index][i]);
                 }
             }
         }
-        dist[start] = 0;
     }
 
 public:
@@ -46,18 +60,28 @@ public:
             number += (i - 48) * order;
             order *= 10;
         }
+        this->vertices_num = number;
         number = 0;
         order = 1;
-        this->vertices_num = number;
-        adjMatrix = new int* [vertices_num];
-        for (int i = 0; i < vertices_num; i++) {
-            adjMatrix[i] = new int[vertices_num];
-        }
         temp.clear();
+        adjMatrix = new int* [this->vertices_num];
+        for (int i = 0; i < this->vertices_num; ++i) {
+            adjMatrix[i] = new int[this->vertices_num];
+        } for (int i = 0; i < this->vertices_num; ++i) {
+            for (int k = 0; k < this->vertices_num; ++k) {
+                adjMatrix[i][k] = 9999;
+            }
+        }
         while (getline(fin, temp)) {
             int num_of_spaces = 0;
             int first_index, second_index;
             for (char i : temp) {
+                if (i == ';') {
+                    this->adjMatrix[first_index][second_index] = number;
+                    number = 0;
+                    order = 1;
+                    break;
+                }
                 if (i == ' ') {
                     number = 0;
                     order = 1;
@@ -70,8 +94,6 @@ public:
                     first_index = number;
                 } else if (num_of_spaces == 1) {
                     second_index = number;
-                } else if (num_of_spaces == 2) {
-                    adjMatrix[first_index][second_index] = number;
                 }
             }
             temp.clear();
@@ -84,6 +106,6 @@ public:
     }
 
     void Search(int* dist, int start) {
-        dijkstra(dist, start);
+        this->dijkstra(dist, start);
     }
 };
