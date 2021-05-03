@@ -11,10 +11,6 @@ protected:
     int length;
     char* data;
 public:
-//    virtual bool Check(char* str) {
-//        return true;
-//    }
-
     void getData() {
         puts(this->data);
     }
@@ -102,14 +98,6 @@ private:
     }
 
 public:
-//    bool Check(char* str) override {
-//        if (isId(str)) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-
     StringId() : String() {}
 
     explicit StringId(char* str) : String(str) {
@@ -250,6 +238,7 @@ private:
         char* array = new char[100];
         if (number < 0) {
             array[0] = 49;
+            number = -number;
         } else {
             array[0] = 48;
         }
@@ -266,7 +255,7 @@ private:
             for (int j = i; j > 0; --j) {
                 if (array[j] == 48) {
                     array[j] = 49;
-                    for (int k = j; k < i + 1; ++k) {
+                    for (int k = j + 1; k < i; ++k) {
                         array[k] = 48;
                     }
                     return array;
@@ -277,14 +266,6 @@ private:
     }
 
 public:
-//    bool Check(char* str) override {
-//        if (isBin(str)) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-
     StringBin() : String() {}
 
     explicit StringBin(char* str) : String(str) {
