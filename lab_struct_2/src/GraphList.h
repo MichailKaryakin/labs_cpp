@@ -15,7 +15,7 @@ class GraphList {
     int vertices_num;
     list <node>* adjList;
 private:
-    void dijkstra(int* dist, int start) {
+    void dijkstra(int* dist, int start) { //алгоритм дейкстры
         int i, k;
 
         for (k = 0; k < this->vertices_num; ++k) {
@@ -52,7 +52,7 @@ private:
         }
     }
 
-    void addEdge(int source, int dest, int cost) {
+    void addEdge(int source, int dest, int cost) { //добавление новой вершины в список
         node newNode;
         newNode.dest = dest;
         newNode.cost = cost;
@@ -60,7 +60,7 @@ private:
     }
 
 public:
-    GraphList() {
+    GraphList() { //считывание графа из файла
         ifstream fin("graph.txt");
         string temp;
         getline(fin, temp);
@@ -79,7 +79,7 @@ public:
             int first_index, second_index;
             for (char i : temp) {
                 if (i == ';') {
-                    this->addEdge(first_index, second_index, number);
+                    this->addEdge(first_index, second_index, number); //добавление вершины в список
                     number = 0;
                     break;
                 }
@@ -105,7 +105,7 @@ public:
         return this->vertices_num;
     }
 
-    void Search(int* dist, int start) {
+    void Search(int* dist, int start) { //запуск поиска по условию задания
         this->dijkstra(dist, start);
     }
 };
