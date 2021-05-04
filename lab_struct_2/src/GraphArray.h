@@ -62,7 +62,6 @@ public:
         }
         this->vertices_num = number;
         number = 0;
-        order = 1;
         temp.clear();
         adjMatrix = new int* [this->vertices_num];
         for (int i = 0; i < this->vertices_num; ++i) {
@@ -79,17 +78,15 @@ public:
                 if (i == ';') {
                     this->adjMatrix[first_index][second_index] = number;
                     number = 0;
-                    order = 1;
                     break;
                 }
                 if (i == ' ') {
                     number = 0;
-                    order = 1;
                     ++num_of_spaces;
                     continue;
                 }
-                number += (i - 48) * order;
-                order *= 10;
+                number *= 10;
+                number += (i - 48);
                 if (num_of_spaces == 0) {
                     first_index = number;
                 } else if (num_of_spaces == 1) {

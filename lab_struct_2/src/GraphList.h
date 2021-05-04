@@ -72,7 +72,6 @@ public:
         }
         this->vertices_num = number;
         number = 0;
-        order = 1;
         temp.clear();
         this->adjList = new list<node>[this->vertices_num];
         while (getline(fin, temp)) {
@@ -82,17 +81,15 @@ public:
                 if (i == ';') {
                     this->addEdge(first_index, second_index, number);
                     number = 0;
-                    order = 1;
                     break;
                 }
                 if (i == ' ') {
                     number = 0;
-                    order = 1;
                     ++num_of_spaces;
                     continue;
                 }
-                number += (i - 48) * order;
-                order *= 10;
+                number *= 10;
+                number += (i - 48);
                 if (num_of_spaces == 0) {
                     first_index = number;
                 } else if (num_of_spaces == 1) {
