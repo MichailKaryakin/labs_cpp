@@ -147,9 +147,13 @@ int main() {
                     } else if (user_choice_2_1 == 2) {
                         printf("размер: %d\n", object.size());
                     } else if (user_choice_2_1 == 3) {
-                        printf("передний элемент: %li\n", object.front());
+                        if (!object.empty())
+                            printf("передний элемент: %li\n", object.front());
+                        else puts("элементов нет");
                     } else if (user_choice_2_1 == 4) {
-                        printf("задний элемент: %li\n", object.back());
+                        if (!object.empty())
+                            printf("задний элемент: %li\n", object.back());
+                        else puts("элементов нет");
                     } else if (user_choice_2_1 == 5) {
                         long temp;
                         puts("введите элемент:");
@@ -160,7 +164,9 @@ int main() {
                         printf("передний элемент: %li\n", object.front());
                         puts("передний элемент извлечён");
                         object.pop();
-                        printf("передний элемент: %li\n", object.front());
+                        if (!object.empty())
+                            printf("передний элемент: %li\n", object.front());
+                        else puts("был извлечён последний элемент");
                     } else if (user_choice_2_1 == 7) {
                         printf("задний элемент: %li\n", object.back());
                         long temp;
@@ -228,27 +234,33 @@ int main() {
                     } else if (user_choice_2_2 == 2) {
                         printf("размер: %d\n", object.size());
                     } else if (user_choice_2_2 == 3) {
-                        printf("передний элемент: %uc\n", object.front());
+                        if (!object.empty())
+                            printf("передний элемент: %c\n", object.front());
+                        else puts("элементов нет");
                     } else if (user_choice_2_2 == 4) {
-                        printf("задний элемент: %uc\n", object.back());
+                        if (!object.empty())
+                            printf("задний элемент: %c\n", object.back());
+                        else puts("элементов нет");
                     } else if (user_choice_2_2 == 5) {
-                        long temp;
+                        unsigned char temp;
                         puts("введите элемент:");
                         cin >> temp;
                         object.push(temp);
-                        printf("задний элемент: %uc\n", object.front());
+                        printf("задний элемент: %c\n", object.back());
                     } else if (user_choice_2_2 == 6) {
-                        printf("передний элемент: %uc\n", object.front());
+                        printf("передний элемент: %c\n", object.front());
                         puts("передний элемент извлечён");
                         object.pop();
-                        printf("передний элемент: %uc\n", object.front());
+                        if (!object.empty())
+                            printf("передний элемент: %c\n", object.front());
+                        else puts("был извлечён последний элемент");
                     } else if (user_choice_2_2 == 7) {
-                        printf("задний элемент: %uc\n", object.back());
-                        long temp;
+                        printf("задний элемент: %c\n", object.back());
+                        unsigned char temp;
                         puts("введите элемент:");
                         cin >> temp;
                         object.emplace(temp);
-                        printf("задний элемент: %uc\n", object.back());
+                        printf("задний элемент: %c\n", object.back());
                     } else if (user_choice_2_2 == 8) {
                         queue<unsigned char> temp_object;
                         puts("создана новая очередь");
@@ -275,12 +287,12 @@ int main() {
                         object.swap(temp_object);
                         puts("смена содержимого очередей произведена");
                         while (!object.empty()) {
-                            printf("передний элемент исходной очереди: %uc\n", object.front());
+                            printf("передний элемент исходной очереди: %c\n", object.front());
                             object.pop();
                             puts("передний элемент извлечён");
                         }
                         while (!temp_object.empty()) {
-                            printf("передний элемент новой очереди: %uc\n", temp_object.front());
+                            printf("передний элемент новой очереди: %c\n", temp_object.front());
                             temp_object.pop();
                             puts("передний элемент извлечён");
                         }
