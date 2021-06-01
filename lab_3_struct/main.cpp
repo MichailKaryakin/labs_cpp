@@ -97,7 +97,8 @@ void fill_arrays(int* array1, int* array2, int* array3, int* array4) {
     fin.close();
 }
 
-total_data sort_arrays(const int* array1, const int* array2, const int* array3, const int* array4, total_data totalData) {
+total_data
+sort_arrays(const int* array1, const int* array2, const int* array3, const int* array4, total_data totalData) {
     bool exit = false;
     bool sorted1 = false, sorted2 = false, sorted3 = false, sorted4 = false;
     while (!exit) {
