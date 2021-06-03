@@ -1,10 +1,9 @@
 #include "cstdlib"
 #include "cmath"
 #include "ctime"
-#include "data.h"
-#include "sortings.h"
+#include "utils.h"
 
-data choicesSort(int* array, int length) {
+void choicesSort(int* array, int length) {
     unsigned int start_time = clock();
     int compare_count = 0;
     int basic_actions = 0;
@@ -24,14 +23,10 @@ data choicesSort(int* array, int length) {
         }
     }
     unsigned int end_time = clock();
-    data Data{};
-    Data.basic_actions = basic_actions;
-    Data.compare_count = compare_count;
-    Data.time = end_time - start_time;
-    return Data;
+    unsigned int time = end_time - start_time;
 }
 
-data insertionSort(int* array, int length) {
+void insertionSort(int* array, int length) {
     unsigned int start_time = clock();
     int temp, item;
     int compare_count = 0;
@@ -51,14 +46,10 @@ data insertionSort(int* array, int length) {
         }
     }
     unsigned int end_time = clock();
-    data Data{};
-    Data.basic_actions = basic_actions;
-    Data.compare_count = compare_count;
-    Data.time = end_time - start_time;
-    return Data;
+    unsigned int time = end_time - start_time;
 }
 
-data shellSort(int* array, int length) {
+void shellSort(int* array, int length) {
     unsigned int start_time = clock();
     int compare_count = 0;
     int basic_actions = 0;
@@ -90,11 +81,7 @@ data shellSort(int* array, int length) {
     }
     free(h);
     unsigned int end_time = clock();
-    data Data{};
-    Data.basic_actions = basic_actions;
-    Data.compare_count = compare_count;
-    Data.time = end_time - start_time;
-    return Data;
+    unsigned int time = end_time - start_time;
 }
 
 static int basic_actions = 0;
@@ -126,7 +113,7 @@ void Merge(int* array, int first, int last) {
     delete[] mas;
 }
 
-data mergeSort(int* array, int first, int last) {
+void mergeSort(int* array, int first, int last) {
     unsigned int start_time = clock();
     if (first < last) {
         ++compare_count;
@@ -135,13 +122,9 @@ data mergeSort(int* array, int first, int last) {
         Merge(array, first, last);  //слияние двух частей
     }
     unsigned int end_time = clock();
-    data Data{};
-    Data.basic_actions = basic_actions;
-    Data.compare_count = compare_count;
-    Data.time = end_time - start_time;
+    unsigned int time = end_time - start_time;
     basic_actions = 0;
     compare_count = 0;
-    return Data;
 }
 
 
