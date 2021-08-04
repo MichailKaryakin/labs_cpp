@@ -15,6 +15,7 @@ int main() {
         int n = graph.getVerticesNum();
         int dist[n];
 
+        int cityNum = 0;
         for (int i = 0; i < n; i++) {
             graph.Search(dist, i);
             bool check = true;
@@ -26,7 +27,11 @@ int main() {
             }
             if (check) {
                 printf("from city %d there is a path less than 100 km to any other city\n", i);
+                ++cityNum;
             }
+        }
+        if (cityNum == 0) {
+            puts("there is no such city");
         }
     } else if (user_choice == 2) {
         GraphArray graph;

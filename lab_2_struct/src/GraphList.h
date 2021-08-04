@@ -15,7 +15,7 @@ class GraphList {
     int vertices_num;
     list <node>* adjList;
 private:
-    void dijkstra(int* dist, int start) {
+    void dijkstra(int* dist, int start) { //алгоритм дейкстры
         int i, k;
 
         for (k = 0; k < this->vertices_num; ++k) {
@@ -52,7 +52,7 @@ private:
         }
     }
 
-    void addEdge(int source, int dest, int cost) {
+    void addEdge(int source, int dest, int cost) { //добавление новой вершины в список
         node newNode;
         newNode.dest = dest;
         newNode.cost = cost;
@@ -60,8 +60,8 @@ private:
     }
 
 public:
-    GraphList() {
-        ifstream fin("graph.txt");
+    GraphList() { //считывание графа из файла
+        ifstream fin("graphadj.txt");
         string temp;
         getline(fin, temp);
         int number = 0;
@@ -72,30 +72,30 @@ public:
         }
         this->vertices_num = number;
         number = 0;
-        order = 1;
         temp.clear();
         this->adjList = new list<node>[this->vertices_num];
+        int first_index = 0;
         while (getline(fin, temp)) {
             int num_of_spaces = 0;
-            int first_index, second_index;
+            int second_index;
             for (char i : temp) {
+                if (i == '-') {
+                    ++first_index;
+                    break;
+                }
                 if (i == ';') {
-                    this->addEdge(first_index, second_index, number);
+                    this->addEdge(first_index, second_index, number); //добавление вершины в список
                     number = 0;
-                    order = 1;
                     break;
                 }
                 if (i == ' ') {
                     number = 0;
-                    order = 1;
                     ++num_of_spaces;
                     continue;
                 }
-                number += (i - 48) * order;
-                order *= 10;
+                number *= 10;
+                number += (i - 48);
                 if (num_of_spaces == 0) {
-                    first_index = number;
-                } else if (num_of_spaces == 1) {
                     second_index = number;
                 }
             }
@@ -108,7 +108,7 @@ public:
         return this->vertices_num;
     }
 
-    void Search(int* dist, int start) {
+    void Search(int* dist, int start) { //запуск поиска по условию задания
         this->dijkstra(dist, start);
     }
 };
