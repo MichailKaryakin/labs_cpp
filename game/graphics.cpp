@@ -3,7 +3,7 @@
 
 Graphics::Graphics() {
     SDL_CreateWindowAndRenderer(640, 480, 0, &this->_window, &this->_renderer);
-    SDL_SetWindowTitle(this->_window, "fuck yeah");
+    SDL_SetWindowTitle(this->_window, "Caverunner");
 }
 
 Graphics::~Graphics() {
