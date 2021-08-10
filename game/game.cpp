@@ -1,7 +1,7 @@
-#include <SDL2/SDL.h>
-#include "headers/game.h"
-#include "headers/graphics.h"
-#include "headers/input.h"
+#include <SDL.h>
+#include "game.h"
+#include "graphics.h"
+#include "input.h"
 
 namespace {
     const int FPS = 50;
@@ -13,12 +13,14 @@ Game::Game() {
     this->gameLoop();
 }
 
-Game::~Game() {}
+Game::~Game() {
+
+}
 
 void Game::gameLoop() {
     Graphics graphics;
-    SDL_Event event;
     Input input;
+    SDL_Event event;
     int LAST_UPDATE_TIME = SDL_GetTicks();
     while (true) {
         input.beginNewFrame();
@@ -43,7 +45,10 @@ void Game::gameLoop() {
     }
 }
 
-void Game::draw(Graphics& graphics) {}
+void Game::draw(Graphics& graphics) {
 
-void Game::update(float elapsedTime) {}
+}
 
+void Game::update(float elapsedTime) {
+
+}
