@@ -16,13 +16,13 @@ private:
     SDL_Renderer* _renderer{};
     std::map<std::string, SDL_Surface*> _spriteSheets;
 public:
-    SDL_Surface* loadImage(const std::string& filePath);
-
     Graphics();
 
     ~Graphics();
 
-    void blitSurface(SDL_Texture* source, SDL_Rect* sourceRectangle, SDL_Rect* destinationRectangle);
+    SDL_Surface* loadImage(const std::string& filePath);
+
+    void blitSurface(SDL_Texture* texture, SDL_Rect* sourceRectangle, SDL_Rect* destinationRectangle);
 
     void flip();
 
