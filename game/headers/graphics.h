@@ -9,7 +9,6 @@ struct SDL_Surface;
 struct SDL_Texture;
 struct SDL_Rect;
 
-
 class Graphics {
 private:
     SDL_Window* _window{};

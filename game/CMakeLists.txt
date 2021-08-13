@@ -12,6 +12,6 @@ include_directories(${SDL2_IMAGE_INCLUDE_DIR})
 
 include_directories(${PROJECT_SOURCE_DIR}/headers)
 
-add_executable(game src/main.cpp headers/graphics.h src/graphics.cpp headers/game.h src/game.cpp headers/input.h src/input.cpp headers/sprite.h src/sprite.cpp)
+add_executable(game src/main.cpp headers/graphics.h src/graphics.cpp headers/game.h src/game.cpp headers/input.h src/input.cpp headers/sprite.h src/sprite.cpp headers/globals.h headers/animatedsprite.h)
 
 target_link_libraries(game ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} -lmingw32 -lSDL2main -lSDL2 -mwindows)
