@@ -3,13 +3,13 @@
 #include <string>
 
 #include <SDL.h>
+
 class Graphics;
 
 class Sprite {
 private:
     SDL_Rect _sourceRect{};
     SDL_Texture* _spriteSheet{};
-
     float _x{}, _y{};
 public:
     Sprite();
