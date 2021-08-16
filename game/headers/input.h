@@ -3,10 +3,17 @@
 #include <SDL.h>
 #include <map>
 
+/*
+ * класс, работающий с пользовательским вводом
+ */
+
 class Input {
 private:
+    //удерживаемые в данный момент клавиши
     std::map<SDL_Scancode, bool> _heldKeys;
+    //нажатые в данный момент клавиши
     std::map<SDL_Scancode, bool> _pressedKeys;
+    //отпущенные в данный момент клавиши
     std::map<SDL_Scancode, bool> _releasedKeys;
 public:
     void beginNewFrame();

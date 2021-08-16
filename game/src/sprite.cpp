@@ -22,7 +22,6 @@ Sprite::Sprite(Graphics& graphics, const std::string& filepath, int sourceX, int
     this->_sourceRect.y = sourceY;
     this->_sourceRect.w = width;
     this->_sourceRect.h = height;
-
     this->_spriteSheet = SDL_CreateTextureFromSurface(graphics.getRenderer(), graphics.loadImage(filepath));
     if (this->_spriteSheet == nullptr) {
         printf("\nError: Unable to load image\n");

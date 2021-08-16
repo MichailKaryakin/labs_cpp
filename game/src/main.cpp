@@ -1,3 +1,7 @@
+/*
+ * начало выполнения программы
+ */
+
 #include "game.h"
 
 int main(int argc, char* argv[]) {

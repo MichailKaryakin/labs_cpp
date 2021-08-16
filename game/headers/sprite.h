@@ -6,10 +6,17 @@
 
 class Graphics;
 
+/*
+ * класс спрайта, работающий с информацией о конкретном спрайте
+ */
+
 class Sprite {
 private:
+    //место спрайта на спрайтшите
     SDL_Rect _sourceRect{};
+    //спрайтшит
     SDL_Texture* _spriteSheet{};
+    //точка на экране
     float _x{}, _y{};
 public:
     Sprite();
@@ -21,5 +28,6 @@ public:
 
     virtual void update();
 
+    //загрузка спрайта на рендерер
     void draw(Graphics& graphics, int x, int y);
 };
