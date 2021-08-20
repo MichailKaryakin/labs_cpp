@@ -38,8 +38,10 @@ protected:
     void setVisible(bool visible);
 
     //логика, выполняющаяся по завершении анимации
-    virtual void animationDone(std::string currentAnimation);
+    virtual void animationDone(std::string currentAnimation) = 0;
 
+    //необходимая функция, устанавливающая все анимации для спрайта
+    virtual void setupAnimations() = 0;
 public:
     AnimatedSprite(Graphics& graphics, const std::string& filepath, int sourceX, int sourceY, int width, int height,
                    float posX, float posY, float timeToUpdate);
@@ -54,7 +56,4 @@ public:
 
     //выводит спрайт на экран
     void draw(Graphics& graphics, int x, int y);
-
-    //необходимая функция, устанавливающая все анимации для спрайта
-    virtual void setupAnimations();
 };

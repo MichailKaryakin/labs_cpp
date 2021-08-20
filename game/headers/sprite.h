@@ -16,7 +16,6 @@ protected:
     SDL_Rect _sourceRect{};
     //спрайтшит
     SDL_Texture* _spriteSheet{};
-private:
     //точка на экране
     float _x{}, _y{};
 public:
