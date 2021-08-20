@@ -1,11 +1,11 @@
 #pragma once
 
-#include "sprite.h"
+#include "animatedsprite.h"
 
 class Graphics;
 
-/*
- * класс игры, скрепляющий всю её логику
+/* класс игры
+ * скрепляет всю логику игры
  */
 
 class Game {
@@ -20,7 +20,7 @@ private:
     void update(float elapsedTime);
 
     //спрайт персонажа
-    Sprite _player;
+    AnimatedSprite _player;
 public:
     Game();
 

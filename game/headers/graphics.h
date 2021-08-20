@@ -9,8 +9,8 @@ struct SDL_Surface;
 struct SDL_Texture;
 struct SDL_Rect;
 
-/*
- * класс, работающий с графикой игры
+/* класс графики
+ * работает с графикой игры
  */
 
 class Graphics {

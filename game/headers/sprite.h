@@ -6,16 +6,17 @@
 
 class Graphics;
 
-/*
- * класс спрайта, работающий с информацией о конкретном спрайте
+/* класс спрайта
+ * работает с информацией о конкретном спрайте
  */
 
 class Sprite {
-private:
+protected:
     //место спрайта на спрайтшите
     SDL_Rect _sourceRect{};
     //спрайтшит
     SDL_Texture* _spriteSheet{};
+private:
     //точка на экране
     float _x{}, _y{};
 public:
@@ -29,5 +30,5 @@ public:
     virtual void update();
 
     //загрузка спрайта на рендерер
-    void draw(Graphics& graphics, int x, int y);
+    virtual void draw(Graphics& graphics, int x, int y);
 };
