@@ -4,7 +4,7 @@
 #include <algorithm>
 #include "src/utils.h"
 
-#define N1 10
+#define N1 10000
 #define N2 18000
 #define N3 30000
 #define N4 60000

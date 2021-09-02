@@ -8,9 +8,9 @@ namespace player_constants {
 Player::Player() {}
 
 Player::Player(Graphics &graphics, float x, float y) :
-AnimatedSprite(graphics, R"(C:\Users\micha\CLionProjects\labs\game\content\sprites\MyChar.png)", 0, 0, 16, 16, x, y, 100)
+AnimatedSprite(graphics, R"(C:\Users\micha\Documents\programming\code\cpp\labs\game\content\sprites\MyChar.png)", 0, 0, 16, 16, x, y, 100)
 {
-    graphics.loadImage(R"(C:\Users\micha\CLionProjects\labs\game\content\sprites\MyChar.png)");
+    graphics.loadImage(R"(C:\Users\micha\Documents\programming\code\cpp\labs\game\content\sprites\MyChar.png)");
     this->setupAnimations();
     this->playAnimation("RunRight");
 }

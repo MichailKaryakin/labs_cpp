@@ -1,6 +1,7 @@
 #pragma once
 
 #include "player.h"
+#include "level.h"
 
 class Graphics;
 
@@ -21,6 +22,9 @@ private:
 
     //спрайт персонажа
     Player _player;
+
+    //уровень
+    Level _level;
 public:
     Game();
 
