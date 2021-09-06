@@ -1,7 +1,7 @@
-#include <iostream>
-#include "game.h"
+#include "pong.hpp"
 
-int main() {
-    Game game;
-    return 0;
+int main(int argc, char *argv[])
+{
+    Pong pong;
+    pong.game_loop();
 }

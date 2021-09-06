@@ -18,6 +18,14 @@ include_directories(${SDL2_MIXER_INCLUDE_DIR})
 
 include_directories(${PROJECT_SOURCE_DIR}/headers)
 
-add_executable(pong src/main.cpp headers/game.h src/game.cpp)
+add_executable(pong
+        src/ball.cpp
+        headers/ball.hpp
+        src/main.cpp
+        src/paddle.cpp
+        headers/paddle.hpp
+        src/pong.cpp
+        headers/pong.hpp)
+
 
 target_link_libraries(pong ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${SDL2_TTF_LIBRARY} ${SDL2_MIXER_LIBRARY} -lmingw32 -lSDL2main -lSDL2 -mwindows)
