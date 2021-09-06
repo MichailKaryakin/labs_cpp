@@ -9,7 +9,9 @@ void Ball::init(SDL_Renderer *renderer, int x, int y)
 {
     IMG_Init(IMG_INIT_PNG);
 
-    SDL_Surface *image = IMG_Load("ball.png");
+    std::string filePath = R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_pong\content\ball.png)";
+
+    SDL_Surface *image = IMG_Load(filePath.c_str());
     
     m_image = SDL_CreateTextureFromSurface(renderer, image);
     SDL_FreeSurface(image);
