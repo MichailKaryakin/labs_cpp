@@ -9,7 +9,7 @@ void waiting_input() {
 
 int main() {
     system("chcp 65001");
-    int exit = 0;
+    bool exit = false;
     while (!exit) {
         int user_choice;
         puts("1 - конструктор\n2 - конструктор копирования\n3 - длина сторон\n4 - длина медианы\n5 - площадь\n"
@@ -31,7 +31,7 @@ int main() {
                 std::cin.sync();
                 std::cin >> p1.x >> p1.y >> p2.x >> p2.y >> p3.x >> p3.y;
             }
-            auto *triangle = new Triangle(p1, p2, p3);
+            auto* triangle = new Triangle(p1, p2, p3);
             for (int i = 0; i < 3; i++) {
                 triangle->output_point(i + 1);
             }
@@ -47,8 +47,8 @@ int main() {
                 std::cin.sync();
                 std::cin >> p1.x >> p1.y >> p2.x >> p2.y >> p3.x >> p3.y;
             }
-            auto *triangle2 = new Triangle(p1, p2, p3);
-            auto *triangle = new Triangle(*triangle2);
+            auto* triangle2 = new Triangle(p1, p2, p3);
+            auto* triangle = new Triangle(*triangle2);
             for (int i = 0; i < 3; i++) {
                 triangle->output_point(i + 1);
             }
@@ -65,9 +65,9 @@ int main() {
                 std::cin.sync();
                 std::cin >> p1.x >> p1.y >> p2.x >> p2.y >> p3.x >> p3.y;
             }
-            auto *triangle = new Triangle(p1, p2, p3);
+            auto* triangle = new Triangle(p1, p2, p3);
             TriangleSidesLen sidesLen = triangle->sides_len();
-            for (double i : sidesLen.len) {
+            for (double i: sidesLen.len) {
                 printf("длина стороны: %lf\n", i);
             }
             delete triangle;
@@ -96,7 +96,7 @@ int main() {
                 std::cin.sync();
                 std::cin >> p1.x >> p1.y >> p2.x >> p2.y >> p3.x >> p3.y;
             }
-            auto *triangle = new Triangle(p1, p2, p3);
+            auto* triangle = new Triangle(p1, p2, p3);
             double area = triangle->area();
             printf("площадь: %lf\n", area);
             delete triangle;
@@ -111,7 +111,7 @@ int main() {
                 std::cin.sync();
                 std::cin >> p1.x >> p1.y >> p2.x >> p2.y >> p3.x >> p3.y;
             }
-            auto *triangle = new Triangle(p1, p2, p3);
+            auto* triangle = new Triangle(p1, p2, p3);
             for (int i = 0; i < 3; i++) {
                 triangle->output_point(i + 1);
             }
@@ -133,12 +133,12 @@ int main() {
                 std::cin.sync();
                 std::cin >> p1.x >> p1.y >> p2.x >> p2.y >> p3.x >> p3.y;
             }
-            auto *triangle = new Triangle(p1, p2, p3);
+            auto* triangle = new Triangle(p1, p2, p3);
             Point points[3];
             for (int i = 0; i < 3; i++) {
                 points[i] = triangle->return_point(i + 1);
             }
-            for (auto &point : points) {
+            for (auto& point: points) {
                 printf("x координата:%d y координата:%d\n", point.x, point.y);
             }
             delete triangle;
@@ -153,7 +153,7 @@ int main() {
                 std::cin.sync();
                 std::cin >> p1.x >> p1.y >> p2.x >> p2.y >> p3.x >> p3.y;
             }
-            auto *triangle = new Triangle(p1, p2, p3);
+            auto* triangle = new Triangle(p1, p2, p3);
             puts("введите координаты трёх вершин");
             std::cin >> p1.x >> p1.y >> p2.x >> p2.y >> p3.x >> p3.y;
             while (std::cin.fail() == 1) {
@@ -162,8 +162,8 @@ int main() {
                 std::cin.sync();
                 std::cin >> p1.x >> p1.y >> p2.x >> p2.y >> p3.x >> p3.y;
             }
-            auto *triangle2 = new Triangle(p1, p2, p3);
-            bool sim = *triangle ^*triangle2;
+            auto* triangle2 = new Triangle(p1, p2, p3);
+            bool sim = *triangle ^ *triangle2;
             if (sim) {
                 puts("треугольники подобны");
             } else {
@@ -182,7 +182,7 @@ int main() {
                 std::cin.sync();
                 std::cin >> p1.x >> p1.y >> p2.x >> p2.y >> p3.x >> p3.y;
             }
-            auto *triangle = new Triangle(p1, p2, p3);
+            auto* triangle = new Triangle(p1, p2, p3);
             puts("введите координаты трёх вершин для первого треугольника");
             std::cin >> p1.x >> p1.y >> p2.x >> p2.y >> p3.x >> p3.y;
             while (std::cin.fail() == 1) {
@@ -191,7 +191,7 @@ int main() {
                 std::cin.sync();
                 std::cin >> p1.x >> p1.y >> p2.x >> p2.y >> p3.x >> p3.y;
             }
-            auto *triangle2 = new Triangle(p1, p2, p3);
+            auto* triangle2 = new Triangle(p1, p2, p3);
             double sum = *triangle + *triangle2;
             printf("сумма площадей: %lf\n", sum);
             delete triangle2;
@@ -199,7 +199,7 @@ int main() {
             waiting_input();
             continue;
         } else if (user_choice == 10) {
-            exit = 1;
+            exit = true;
         }
     }
     return 0;
