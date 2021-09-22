@@ -27,9 +27,9 @@ void Game::create() {
     this->texture.SetRender(this->renderer);
 
     this->num = 4;        // длина нашей змейки
-    this->timer = 0;        // таймер дл€ шага
+    this->timer = 0;        // таймер до задержки
     this->dir = 0;        // направление змейки
-    this->delay = 0.1;    // скорость звижени€ змейки
+    this->delay = 0.1;    // задержка змейки
 
     // назначаем текстуры в спрайт
     this->item.setTexture(this->texture.getTexture(::greenTexturePc));
@@ -91,14 +91,14 @@ void Game::update() {
         if (this->dir == 2) this->snakeBody[0].x += 1;
         if (this->dir == 3) this->snakeBody[0].y -= 1;
 
-        // попалось €блоко съели
+        // попалось €блоко, съедаем
         if ((this->snakeBody[0].x == this->fruit.x) && (this->snakeBody[0].y == this->fruit.y)) {
             bool done;
             do {
                 this->fruit.x = rand() % ::width_cell;
                 this->fruit.y = rand() % ::height_cell;
                 done = true;
-                for (int i = num; i > 0; --i) {
+                for (int i = num; i >= 0; --i) {
                     if (this->snakeBody[i].x == this->fruit.x && this->snakeBody[i].y == this->fruit.y) {
                         done = false;
                     }
@@ -110,7 +110,7 @@ void Game::update() {
             }
         }
 
-        // если выходим за пределы пол€ то игра заканчиваетс€
+        // если выходим за пределы пол€, то игра заканчиваетс€
         if (this->snakeBody[0].x >= ::width_cell) {
             this->gameLoop = false;
         }

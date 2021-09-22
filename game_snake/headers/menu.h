@@ -17,6 +17,7 @@ private:
     static void setNickname(SDL_Renderer* renderer);
 
     static bool symbolCondition(Input& input);
+
 public:
     explicit Menu(SDL_Renderer* renderer);
 };
