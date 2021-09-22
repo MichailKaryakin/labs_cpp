@@ -32,18 +32,16 @@ void Game::create() {
     this->delay = 0.1;    // скорость звижени€ змейки
 
     // назначаем текстуры в спрайт
-    this->item.setTexture(this->texture.getTexture(
-            R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\sprites\green.png)"));
-    this->snake.setTexture(this->texture.getTexture(
-            R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\sprites\red.png)"));
-    this->background.setTexture(this->texture.getTexture(
-            R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\sprites\white.png)"));
+    this->item.setTexture(this->texture.getTexture(::greenTexturePc));
+    this->snake.setTexture(this->texture.getTexture(::redTexturePc));
+    this->background.setTexture(this->texture.getTexture(::whiteTexturePc));
 
     // масштабируем спрайты под размер пол€
     this->item.setScale(::scale_W, ::scale_H);
     this->snake.setScale(::scale_W, ::scale_H);
     this->background.setScale(::scale_W, ::scale_H);
 
+    // изначальные позиции змейки и фрукта
     this->fruit.x = this->fruit.y = 10;
     this->snakeBody[0].x = 0;
     this->snakeBody[0].y = 0;
@@ -51,7 +49,8 @@ void Game::create() {
 
 void Game::InitSDL() {
     Uint32 flagsW = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL;
-    this->window = SDL_CreateWindow("Snake", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ::width_pixel, ::height_pixel, flagsW);
+    this->window = SDL_CreateWindow("Snake", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ::width_pixel,
+                                    ::height_pixel, flagsW);
     this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 }
 
@@ -95,8 +94,7 @@ void Game::update() {
         // попалось €блоко съели
         if ((this->snakeBody[0].x == this->fruit.x) && (this->snakeBody[0].y == this->fruit.y)) {
             bool done;
-            do
-            {
+            do {
                 this->fruit.x = rand() % ::width_cell;
                 this->fruit.y = rand() % ::height_cell;
                 done = true;
@@ -112,7 +110,7 @@ void Game::update() {
             }
         }
 
-        // если выходим за пределы пол€ то по€вл€есмс€ с другой стороны
+        // если выходим за пределы пол€ то игра заканчиваетс€
         if (this->snakeBody[0].x >= ::width_cell) {
             this->gameLoop = false;
         }

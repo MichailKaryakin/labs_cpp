@@ -16,8 +16,7 @@ void Sprite::setPosition(const float& x, const float& y) {
     this->_position = {x, y};
 }
 
-void Sprite::setScale(const float& x, const float& y)  // где будет центр
-{
+void Sprite::setScale(const float& x, const float& y) {
     this->_scale = {x, y};
 }
 

@@ -36,6 +36,6 @@ private:
     SDL_Renderer* renderer{}; // ссылка на рендерер
     SDL_Event event{};     // события нажатия клавиш
     float timer{}, delay{};
-    bool gameLoop;
+    bool gameLoop{};
     int dir{}, num{}, maxNum = 4;
 };
