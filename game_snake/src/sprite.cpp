@@ -6,8 +6,8 @@ void Sprite::init() {
     this->_scale = {1.0, 1.0};
     this->_position = {0, 0};
     this->_color = {255, 255, 255, 255};
-    this->_rectTxt.x = this->_rectTxt.y = 0;
-    this->_angel = 0;
+    this->_sourceRect.x = this->_sourceRect.y = 0;
+    this->_angle = 0;
 }
 
 Sprite::~Sprite() = default;
@@ -24,7 +24,7 @@ void Sprite::setTexture(SDL_Texture* texture)  // устанавливаем текстуру
 {
     this->_texture = texture;
 
-    SDL_QueryTexture(this->_texture, nullptr, nullptr, &this->_rectTxt.w, &this->_rectTxt.h);
+    SDL_QueryTexture(this->_texture, nullptr, nullptr, &this->_sourceRect.w, &this->_sourceRect.h);
 
     init();
 }
@@ -37,11 +37,11 @@ void Sprite::draw(SDL_Renderer* renderer) {
     SDL_FRect rectWin{
             this->_position.x - Centre.x,
             this->_position.y - Centre.y,
-            this->_rectTxt.w * this->_scale.x,
-            this->_rectTxt.h * this->_scale.y
+            this->_sourceRect.w * this->_scale.x,
+            this->_sourceRect.h * this->_scale.y
     };
 
     SDL_SetTextureColorMod(this->_texture, this->_color.r, this->_color.g, this->_color.b);
     SDL_SetTextureAlphaMod(this->_texture, this->_color.a);
-    SDL_RenderCopyExF(renderer, this->_texture, &_rectTxt, &rectWin, this->_angel, &Centre, SDL_FLIP_NONE);
+    SDL_RenderCopyExF(renderer, this->_texture, &_sourceRect, &rectWin, this->_angle, &Centre, SDL_FLIP_NONE);
 }

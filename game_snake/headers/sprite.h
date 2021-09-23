@@ -10,7 +10,7 @@ public:
 
     ~Sprite();
 
-    void draw(SDL_Renderer* renderer);  //выводим спрайт
+    void draw(SDL_Renderer* renderer);  // выводим спрайт
 
     void setPosition(const float& x, const float& y);
 
@@ -20,10 +20,10 @@ public:
 private:
     void init();
 
-    float _angel{};
+    float _angle{};
     SDL_FPoint _position{};
     SDL_FPoint _scale{};
     SDL_Texture* _texture{};
-    SDL_Rect _rectTxt{};
+    SDL_Rect _sourceRect{};
     SDL_Color _color{};
 };

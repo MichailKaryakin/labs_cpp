@@ -2,7 +2,7 @@
 
 Texture::Texture() = default;
 
-void Texture::SetRender(SDL_Renderer* renderer) {
+void Texture::setRender(SDL_Renderer* renderer) {
     this->_renderer = renderer;
 }
 

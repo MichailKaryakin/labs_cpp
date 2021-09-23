@@ -24,7 +24,7 @@ void Game::create() {
     this->gameLoop = true;
     InitSDL();
 
-    this->texture.SetRender(this->renderer);
+    this->texture.setRender(this->renderer);
 
     this->num = 4;        // длина нашей змейки
     this->timer = 0;        // таймер до задержки

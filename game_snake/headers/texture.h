@@ -6,7 +6,7 @@
 
 class Texture {
 public:
-    void SetRender(SDL_Renderer* renderer);
+    void setRender(SDL_Renderer* renderer);
 
     Texture();
 
