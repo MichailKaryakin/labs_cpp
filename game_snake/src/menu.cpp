@@ -29,10 +29,10 @@ Menu::Menu(SDL_Renderer* renderer) {
 void Menu::showTitleScreen(SDL_Renderer* renderer) {
     TTF_Init();
     TTF_Font* font1 = TTF_OpenFont(
-            R"(C:\Users\micha\CLionProjects\labs\game_snake\content\fonts\font2.ttf)",
+            R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\fonts\font2.ttf)",
             90);
     TTF_Font* font2 = TTF_OpenFont(
-            R"(C:\Users\micha\CLionProjects\labs\game_snake\content\fonts\font2.ttf)",
+            R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\fonts\font2.ttf)",
             40);
 
     SDL_Event event;
@@ -69,10 +69,10 @@ void Menu::showTitleScreen(SDL_Renderer* renderer) {
 void Menu::setNickname(SDL_Renderer* renderer) {
     TTF_Init();
     TTF_Font* font1 = TTF_OpenFont(
-            R"(C:\Users\micha\CLionProjects\labs\game_snake\content\fonts\font1.ttf)",
+            R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\fonts\font1.ttf)",
             70);
     TTF_Font* font2 = TTF_OpenFont(
-            R"(C:\Users\micha\CLionProjects\labs\game_snake\content\fonts\font1.ttf)",
+            R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\fonts\font1.ttf)",
             40);
 
     SDL_Event event;
@@ -122,7 +122,7 @@ void Menu::setNickname(SDL_Renderer* renderer) {
 }
 
 void Menu::addRecord(std::string& nickname) {
-    std::string filePath = R"(C:\Users\micha\CLionProjects\labs\game_snake\content\data\nicknames.txt)";
+    std::string filePath = R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\data\nicknames.txt)";
     FILE* file = fopen(filePath.c_str(), "a");
     nickname.push_back(' ');
     fputs(nickname.c_str(), file);

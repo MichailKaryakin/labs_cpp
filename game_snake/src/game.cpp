@@ -33,11 +33,11 @@ void Game::create() {
 
     // назначаем текстуры в спрайт
     this->item.setTexture(this->texture.getTexture(
-            R"(C:\Users\micha\CLionProjects\labs\game_snake\content\sprites\green.png)"));
+            R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\sprites\green.png)"));
     this->snake.setTexture(this->texture.getTexture(
-            R"(C:\Users\micha\CLionProjects\labs\game_snake\content\sprites\red.png)"));
+            R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\sprites\red.png)"));
     this->background.setTexture(this->texture.getTexture(
-            R"(C:\Users\micha\CLionProjects\labs\game_snake\content\sprites\white.png)"));
+            R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\sprites\white.png)"));
 
     // масштабируем спрайты под размер поля
     this->item.setScale(::scale_W, ::scale_H);
@@ -112,7 +112,6 @@ void Game::update() {
             }
         }
 
-        // если выходим за пределы поля то появляесмся с другой стороны
         if (this->snakeBody[0].x >= ::width_cell) {
             this->gameLoop = false;
         }

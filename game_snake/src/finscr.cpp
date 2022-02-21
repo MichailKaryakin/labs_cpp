@@ -21,7 +21,7 @@ void FinalScreen::get_text_and_rect(SDL_Renderer* renderer, int x, int y, const 
 }
 
 void FinalScreen::addScore(int score) {
-    std::string filePath = R"(C:\Users\micha\CLionProjects\labs\game_snake\content\data\scores.txt)";
+    std::string filePath = R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\data\scores.txt)";
     FILE* file = fopen(filePath.c_str(), "a");
     std::string s = std::to_string(score);
     s.push_back(' ');
@@ -37,10 +37,10 @@ FinalScreen::FinalScreen(SDL_Renderer* renderer, int score) {
 void FinalScreen::showFinalScreen(SDL_Renderer* renderer) {
     TTF_Init();
     TTF_Font* font1 = TTF_OpenFont(
-            R"(C:\Users\micha\CLionProjects\labs\game_snake\content\fonts\font1.ttf)",
+            R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\fonts\font1.ttf)",
             40);
     TTF_Font* font2 = TTF_OpenFont(
-            R"(C:\Users\micha\CLionProjects\labs\game_snake\content\fonts\font1.ttf)",
+            R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\fonts\font1.ttf)",
             60);
 
     std::vector<SDL_Rect> rects_1;
@@ -145,8 +145,8 @@ void FinalScreen::vectorSort(std::vector<std::string>& nicknames, std::vector<st
 }
 
 void FinalScreen::vectorRead(std::vector<std::string>& nicknames, std::vector<std::string>& scores) {
-    std::string filePath_1 = R"(C:\Users\micha\CLionProjects\labs\game_snake\content\data\nicknames.txt)";
-    std::string filePath_2 = R"(C:\Users\micha\CLionProjects\labs\game_snake\content\data\scores.txt)";
+    std::string filePath_1 = R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\data\nicknames.txt)";
+    std::string filePath_2 = R"(C:\Users\micha\Documents\programming\code\cpp\labs\game_snake\content\data\scores.txt)";
     FILE* file_1 = fopen(filePath_1.c_str(), "r");
     FILE* file_2 = fopen(filePath_2.c_str(), "r");
 
