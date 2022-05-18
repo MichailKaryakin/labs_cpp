@@ -46,16 +46,17 @@ int main() {
         // Отправляем данные клиенту
         while (true) {
             nSize = sizeof(SOCKADDR);
+
             clientSock = accept(servSock, (SOCKADDR*) &clientAddr, &nSize);
 
             recv(clientSock, szBuffer[0], 512, 0);
             recv(clientSock, szBuffer[1], 512, 0);
             recv(clientSock, szBuffer[2], 512, 0);
 
-            if (!strcmp((szBuffer[0]), "0")) {
+            if (!strcmp((szBuffer[4]), "65")) {
                 array[2] = "19";
                 array[5] = "Server is working!";
-                puts("hui");
+                puts("test");
             }
         }
 
