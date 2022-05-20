@@ -5,6 +5,15 @@
 
 using namespace std;
 
+// структура с полями протокола
+struct packet {
+    int16_t transactionId;
+    int16_t protocolId;
+    int16_t length;
+    int8_t unitId;
+    int8_t functionCode;
+};
+
 int main() {
     int user_choice = 0;
     puts("1 - check connection, 2 - hello name, 3 - sum of two numbers");
@@ -22,32 +31,33 @@ int main() {
         sockAddr.sin_family = PF_INET;
         sockAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
         sockAddr.sin_port = htons(502);
-
         connect(sock, (SOCKADDR*) &sockAddr, sizeof(SOCKADDR));
 
         // буфер приёма
-        char* szBuffer[6];
+        char szBuffer[30] = {0};
 
-        // пакет протокола
-        const char* array[6];
-        array[0] = "0";
-        array[1] = "0";
-        array[2] = "1";
-        array[3] = "0";
-        array[4] = "65";
-        array[5] = "0";
+        // заполнение структуры
+        packet Packet;
+        Packet.transactionId = 0x00;
+        Packet.protocolId = 0x00;
+        Packet.length = 0x01;
+        Packet.unitId = 0x00;
+        Packet.functionCode = 65;
+
+        // массив пакета протокола
+        char array[30];
+        memcpy(array, &Packet.transactionId, 2);
+        memcpy(array + 2, &Packet.protocolId, 2);
+        memcpy(array + 4, &Packet.length, 2);
+        memcpy(array + 6, &Packet.unitId, 2);
+        memcpy(array + 8, &Packet.functionCode, 1);
+        char str[] = "check";
+        memcpy(array + 9, str, strlen(str) + 1);
 
         // отправка на сервер и получение ответа
-        for (auto & i : array) {
-            send(sock, i, strlen(i) + sizeof(char), 0);
-        }
+        send(sock, array, strlen(array) + 1, 0);
 
-        for (auto & i : szBuffer) {
-            recv(sock, i, 512, 6);
-        }
-
-        printf("Message from server: %s\n", szBuffer[5]);
-
+        // закрытие сокета
         closesocket(sock);
 
         // завершение работы

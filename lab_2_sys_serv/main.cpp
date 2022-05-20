@@ -31,17 +31,11 @@ int main() {
         SOCKADDR clientAddr;
         int nSize;
         string defaultResponse = "Invalid Function Code!";
-        char* szBuffer[6];
+        char szBuffer[30] = {0};
         SOCKET clientSock;
 
-        // Пакет протокола
-        const char* array[6];
-        array[0] = "0";
-        array[1] = "0";
-        array[2] = "23";
-        array[3] = "0";
-        array[4] = "65";
-        array[5] = defaultResponse.c_str();
+        // Массив пакета протокола
+        char array[30];
 
         // Отправляем данные клиенту
         while (true) {
@@ -49,15 +43,7 @@ int main() {
 
             clientSock = accept(servSock, (SOCKADDR*) &clientAddr, &nSize);
 
-            recv(clientSock, szBuffer[0], 512, 0);
-            recv(clientSock, szBuffer[1], 512, 0);
-            recv(clientSock, szBuffer[2], 512, 0);
-
-            if (!strcmp((szBuffer[4]), "65")) {
-                array[2] = "19";
-                array[5] = "Server is working!";
-                puts("test");
-            }
+            recv(clientSock, szBuffer, 30, 0);
         }
 
         // Закрываем сокет
