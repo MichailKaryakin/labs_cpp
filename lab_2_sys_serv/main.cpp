@@ -7,7 +7,6 @@ int main() {
     int user_choice = 0;
     puts("1 - check connection, 2 - hello name, 3 - sum of two numbers");
     cin >> user_choice;
-
     if (user_choice == 1) {
         // Инициализируем DLL
         WSADATA wsaData;
@@ -17,7 +16,7 @@ int main() {
         SOCKET servSock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 
         // Привязываем сокет
-        sockaddr_in sockAddr{};
+        sockaddr_in sockAddr;
         memset(&sockAddr, 0, sizeof(sockAddr)); // Каждый байт заполняется 0
         sockAddr.sin_family = PF_INET; // Использовать IPv4-адрес
         sockAddr.sin_addr.s_addr = inet_addr("127.0.0.1"); // Определенный IP-адрес
@@ -40,10 +39,10 @@ int main() {
         // Отправляем данные клиенту
         while (true) {
             nSize = sizeof(SOCKADDR);
-
             clientSock = accept(servSock, (SOCKADDR*) &clientAddr, &nSize);
-
+            printf("work\n");
             recv(clientSock, szBuffer, 30, 0);
+            printf("Message:%s\n", szBuffer);
         }
 
         // Закрываем сокет
