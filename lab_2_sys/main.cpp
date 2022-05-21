@@ -28,18 +28,15 @@ int main() {
         char szBuffer[30] = {0};
 
         // массив пакета протокола
-        char array[30];
-        char str[] = "check";
-        array[0] = 0;
-        array[1] = 0;
-        array[2] = strlen(str);
-        array[3] = 0;
-        array[4] = 65;
-        memcpy(array + 5, str, strlen(str) + 1);
-        array[strlen(array)] = '\0';
+        string array;
+        array += 'c';
+        array += 'h';
+        array += 'e';
+        array += 'c';
+        array += 'k';
 
         // отправка на сервер и получение ответа
-        send(sock, str, 5 + 1, 0);
+        send(sock, array.c_str(), 5 + 1, 0);
 
         // закрытие сокета
         closesocket(sock);
