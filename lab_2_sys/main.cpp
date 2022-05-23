@@ -28,15 +28,16 @@ int main() {
         char szBuffer[30] = {0};
 
         // массив пакета протокола
-        string array;
-        array += 'c';
-        array += 'h';
-        array += 'e';
-        array += 'c';
-        array += 'k';
+        char str[] = "d";
+        unsigned int array[5] = {0, 0, 1, 0, 65};
+
+        string container;
+        container += 'c';
+        container += array[4];
+        container += str;
 
         // отправка на сервер и получение ответа
-        send(sock, array.c_str(), 5 + 1, 0);
+        send(sock, (char*) array, 5, 0);
 
         // закрытие сокета
         closesocket(sock);

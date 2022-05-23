@@ -29,12 +29,9 @@ int main() {
         // Подготовка полей
         SOCKADDR clientAddr;
         int nSize;
-        string defaultResponse = "Invalid Function Code!";
+        string response = "Invalid Function Code!";
         char szBuffer[30] = {0};
         SOCKET clientSock;
-
-        // Массив пакета протокола
-        char array[30];
 
         // Отправляем данные клиенту
         while (true) {
