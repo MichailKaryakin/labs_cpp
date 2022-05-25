@@ -30,7 +30,7 @@ int main() {
         SOCKADDR clientAddr;
         int nSize;
         string response = "Invalid Function Code!";
-        char szBuffer[30] = {0};
+        char szBuffer[30];
         SOCKET clientSock;
 
         // Отправляем данные клиенту
