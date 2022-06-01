@@ -3,9 +3,16 @@
 #include <iostream>
 #include <winsock2.h>
 
-#define offset 48
-
 using namespace std;
+
+struct packet {
+    short transactionId;
+    short protocolId;
+    short length;
+    char unitId;
+    char functionCode;
+    char data[22];
+};
 
 int main() {
     int user_choice = 0;
@@ -30,23 +37,21 @@ int main() {
         char szBuffer[30] = {0};
 
         // массив пакета протокола
-        char message[] = "d";
-        unsigned int messageLength = strlen(message);
-        unsigned int array[5] = {0, 0, messageLength, 0, 65};
-        string container;
-        container += to_string(array[0]);
-        container += to_string(array[1]);
-        container += array[2] + offset;
-        container += to_string(array[3]);
-        container += array[4];
-        container += message;
+        packet Packet;
+        Packet.transactionId = 0;
+        Packet.protocolId = 0;
+        Packet.length = 1;
+        Packet.unitId = 0;
+        Packet.functionCode = 65;
+        Packet.data[0] = 'c';
+        Packet.data[1] = '\0';
 
         // отправка на сервер и получение ответа
-        send(sock, container.c_str(), container.length(), 0);
+        send(sock, (char*) &Packet, 30, 0);
         recv(sock, szBuffer, 30, 0);
 
         // вывод сообщения с сервера
-        printf("Message from server: %s\n", szBuffer + 5);
+        printf("Message from server: %s\n", szBuffer + 8);
 
         // закрытие сокета
         closesocket(sock);
@@ -75,23 +80,27 @@ int main() {
         char szBuffer[30] = {0};
 
         // массив пакета протокола
-        char message[] = "Michail";
-        unsigned int messageLength = strlen(message);
-        unsigned int array[5] = {0, 0, messageLength, 0, 67};
-        string container;
-        container += to_string(array[0]);
-        container += to_string(array[1]);
-        container += array[2] + offset;
-        container += to_string(array[3]);
-        container += array[4];
-        container += message;
+        packet Packet;
+        Packet.transactionId = 0;
+        Packet.protocolId = 0;
+        Packet.length = 7;
+        Packet.unitId = 0;
+        Packet.functionCode = 67;
+        Packet.data[0] = 'M';
+        Packet.data[1] = 'i';
+        Packet.data[2] = 'c';
+        Packet.data[3] = 'h';
+        Packet.data[4] = 'a';
+        Packet.data[5] = 'i';
+        Packet.data[6] = 'l';
+        Packet.data[7] = '\0';
 
         // отправка на сервер и получение ответа
-        send(sock, container.c_str(), container.length(), 0);
+        send(sock, (char*) &Packet, 30, 0);
         recv(sock, szBuffer, 30, 0);
 
         // вывод сообщения с сервера
-        printf("Message from server: %s\n", szBuffer + 5);
+        printf("Message from server: %s\n", szBuffer + 8);
 
         // закрытие сокета
         closesocket(sock);
@@ -125,26 +134,27 @@ int main() {
         // буфер приёма
         char szBuffer[30] = {0};
 
-        // массив пакета протокола
-        string message;
-        message += to_string(firstNumber);
-        message += ' ';
-        message += to_string(secondNumber);
-        unsigned int array[5] = {0, 0, message.length(), 0, 69};
-        string container;
-        container += to_string(array[0]);
-        container += to_string(array[1]);
-        container += array[2] + offset;
-        container += to_string(array[3]);
-        container += array[4];
-        container += message;
+        // пакет протокола
+        packet Packet;
+        Packet.transactionId = 0;
+        Packet.protocolId = 0;
+        Packet.length = 2;
+        Packet.unitId = 0;
+        Packet.functionCode = 69;
+        Packet.data[0] = firstNumber;
+        Packet.data[1] = secondNumber;
+        Packet.data[2] = '\0';
 
         // отправка на сервер и получение ответа
-        send(sock, container.c_str(), container.length(), 0);
+        send(sock, (char*) &Packet, 30, 0);
         recv(sock, szBuffer, 30, 0);
 
         // вывод сообщения с сервера
-        printf("Message from server: %s\n", szBuffer + 5);
+        if (szBuffer[7] == 'E') {
+            printf("Message from server: %d\n", *(szBuffer + 8));
+        } else {
+            printf("Message from server: %s\n", szBuffer + 8);
+        }
 
         // закрытие сокета
         closesocket(sock);

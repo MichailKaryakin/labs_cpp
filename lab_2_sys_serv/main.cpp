@@ -1,9 +1,17 @@
 #include <winsock2.h>
 #include <iostream>
 
-#define offset 48
-
 using namespace std;
+
+struct packet {
+    short transactionId;
+    short protocolId;
+    short length;
+    char unitId;
+    char functionCode;
+    char data[22];
+};
+
 
 int main() {
     int user_choice = 0;
@@ -31,7 +39,6 @@ int main() {
         // Подготовка полей
         SOCKADDR clientAddr;
         int nSize;
-        string response = "Invalid Function Code!";
         char szBuffer[30] = {0};
         SOCKET clientSock;
 
@@ -40,24 +47,61 @@ int main() {
             nSize = sizeof(SOCKADDR);
             clientSock = accept(servSock, (SOCKADDR*) &clientAddr, &nSize);
 
-            printf("work\n");
             recv(clientSock, szBuffer, 30, 0);
-            printf("Message:%s\n", szBuffer);
 
-            if (szBuffer[4] == 'A') {
-                response = "connection completed";
+            if (szBuffer[7] == 'A') {
+                packet Packet;
+                Packet.transactionId = 0;
+                Packet.protocolId = 0;
+                Packet.length = 20;
+                Packet.unitId = 0;
+                Packet.functionCode = 65;
+                Packet.data[0] = 'c';
+                Packet.data[1] = 'o';
+                Packet.data[2] = 'n';
+                Packet.data[3] = 'n';
+                Packet.data[4] = 'e';
+                Packet.data[5] = 'c';
+                Packet.data[6] = 't';
+                Packet.data[7] = 'i';
+                Packet.data[8] = 'o';
+                Packet.data[9] = 'n';
+                Packet.data[10] = ' ';
+                Packet.data[11] = 'c';
+                Packet.data[12] = 'o';
+                Packet.data[13] = 'm';
+                Packet.data[14] = 'p';
+                Packet.data[15] = 'l';
+                Packet.data[16] = 'e';
+                Packet.data[17] = 't';
+                Packet.data[18] = 'e';
+                Packet.data[19] = 'd';
+                Packet.data[20] = '\0';
+
+                send(clientSock, (char*)&Packet, 30, 0);
+            } else {
+                packet Packet;
+                Packet.transactionId = 0;
+                Packet.protocolId = 0;
+                Packet.length = 12;
+                Packet.unitId = 0;
+                Packet.functionCode = 01;
+                Packet.data[0] = 'i';
+                Packet.data[1] = 'n';
+                Packet.data[2] = 'v';
+                Packet.data[3] = 'a';
+                Packet.data[4] = 'l';
+                Packet.data[5] = 'i';
+                Packet.data[6] = 'd';
+                Packet.data[7] = ' ';
+                Packet.data[8] = 'c';
+                Packet.data[9] = 'o';
+                Packet.data[10] = 'd';
+                Packet.data[11] = 'e';
+                Packet.data[12] = '\0';
+
+                send(clientSock, (char*)&Packet, 30, 0);
             }
-
-            unsigned int array[5] = {0, 0, response.length(), 0, 65};
-            string container;
-            container += to_string(array[0]);
-            container += to_string(array[1]);
-            container += array[2] + offset;
-            container += to_string(array[3]);
-            container += array[4];
-            container += response;
-
-            send(clientSock, container.c_str(), container.length(), 0);
         }
 
         // Закрываем сокет
@@ -92,7 +136,6 @@ int main() {
         // Подготовка полей
         SOCKADDR clientAddr;
         int nSize;
-        string response = "Invalid Function Code!";
         char szBuffer[30] = {0};
         SOCKET clientSock;
 
@@ -101,25 +144,49 @@ int main() {
             nSize = sizeof(SOCKADDR);
             clientSock = accept(servSock, (SOCKADDR*) &clientAddr, &nSize);
 
-            printf("work\n");
             recv(clientSock, szBuffer, 30, 0);
-            printf("Message:%s\n", szBuffer);
 
-            if (szBuffer[4] == 'C') {
-                response = "Hello, ";
-                response += (szBuffer + 5);
+            if (szBuffer[7] == 'C') {
+                packet Packet;
+                Packet.transactionId = 0;
+                Packet.protocolId = 0;
+                Packet.length = 7 + szBuffer[4];
+                Packet.unitId = 0;
+                Packet.functionCode = 67;
+                Packet.data[0] = 'H';
+                Packet.data[1] = 'e';
+                Packet.data[2] = 'l';
+                Packet.data[3] = 'l';
+                Packet.data[4] = 'o';
+                Packet.data[5] = ',';
+                Packet.data[6] = ' ';
+                memcpy((char*)&Packet + 15, szBuffer + 8, szBuffer[4]);
+                Packet.data[7 + szBuffer[4]] = '\0';
+
+                send(clientSock, (char*)&Packet, 30, 0);
+            } else {
+                packet Packet;
+                Packet.transactionId = 0;
+                Packet.protocolId = 0;
+                Packet.length = 12;
+                Packet.unitId = 0;
+                Packet.functionCode = 01;
+                Packet.data[0] = 'i';
+                Packet.data[1] = 'n';
+                Packet.data[2] = 'v';
+                Packet.data[3] = 'a';
+                Packet.data[4] = 'l';
+                Packet.data[5] = 'i';
+                Packet.data[6] = 'd';
+                Packet.data[7] = ' ';
+                Packet.data[8] = 'c';
+                Packet.data[9] = 'o';
+                Packet.data[10] = 'd';
+                Packet.data[11] = 'e';
+                Packet.data[12] = '\0';
+
+                send(clientSock, (char*)&Packet, 30, 0);
             }
-
-            unsigned int array[5] = {0, 0, response.length(), 0, 65};
-            string container;
-            container += to_string(array[0]);
-            container += to_string(array[1]);
-            container += array[2] + offset;
-            container += to_string(array[3]);
-            container += array[4];
-            container += response;
-
-            send(clientSock, container.c_str(), container.length(), 0);
         }
 
         // Закрываем сокет
@@ -154,7 +221,6 @@ int main() {
         // Подготовка полей
         SOCKADDR clientAddr;
         int nSize;
-        string response = "Invalid Function Code!";
         char szBuffer[30] = {0};
         SOCKET clientSock;
 
@@ -163,39 +229,45 @@ int main() {
             nSize = sizeof(SOCKADDR);
             clientSock = accept(servSock, (SOCKADDR*) &clientAddr, &nSize);
 
-            printf("work\n");
             recv(clientSock, szBuffer, 30, 0);
-            printf("Message:%s\n", szBuffer);
 
-            if (szBuffer[4] == 'E') {
-                int firstNumber;
-                int secondNumber;
+            if (szBuffer[7] == 'E') {
+                char firstNumber = szBuffer[8];
+                char secondNumber = szBuffer[9];
+                char sum = firstNumber + secondNumber;
 
-                string numbers;
-                numbers += (szBuffer + 5);
-                string delimiter = " ";
-                size_t pos = 0;
-                string token;
-                while ((pos = numbers.find(delimiter)) != string::npos) {
-                    token = numbers.substr(0, pos);
-                    firstNumber = stoi(token);
-                    numbers.erase(0, pos + delimiter.length());
-                }
-                secondNumber = stoi(numbers);
+                packet Packet;
+                Packet.transactionId = 0;
+                Packet.protocolId = 0;
+                Packet.length = 2;
+                Packet.unitId = 0;
+                Packet.functionCode = 69;
+                Packet.data[0] = sum;
 
-                response = "the sum of numbers - " + to_string(firstNumber + secondNumber);
+                send(clientSock, (char*)&Packet, 30, 0);
+            } else {
+                packet Packet;
+                Packet.transactionId = 0;
+                Packet.protocolId = 0;
+                Packet.length = 12;
+                Packet.unitId = 0;
+                Packet.functionCode = 01;
+                Packet.data[0] = 'i';
+                Packet.data[1] = 'n';
+                Packet.data[2] = 'v';
+                Packet.data[3] = 'a';
+                Packet.data[4] = 'l';
+                Packet.data[5] = 'i';
+                Packet.data[6] = 'd';
+                Packet.data[7] = ' ';
+                Packet.data[8] = 'c';
+                Packet.data[9] = 'o';
+                Packet.data[10] = 'd';
+                Packet.data[11] = 'e';
+                Packet.data[12] = '\0';
+
+                send(clientSock, (char*)&Packet, 30, 0);
             }
-
-            unsigned int array[5] = {0, 0, response.length(), 0, 65};
-            string container;
-            container += to_string(array[0]);
-            container += to_string(array[1]);
-            container += array[2] + offset;
-            container += to_string(array[3]);
-            container += array[4];
-            container += response;
-
-            send(clientSock, container.c_str(), container.length(), 0);
         }
 
         // Закрываем сокет
