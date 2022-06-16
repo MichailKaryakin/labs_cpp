@@ -18,4 +18,4 @@ add_library(
         hidapi/hidapi_hidsdi.h
 )
 
-target_link_libraries(lab_1_sys PRIVATE hidapi)
+target_link_libraries(lab_1_sys PRIVATE hidapi wsock32 ws2_32)

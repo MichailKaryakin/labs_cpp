@@ -150,7 +150,9 @@ int main() {
                 packet Packet;
                 Packet.transactionId = 0;
                 Packet.protocolId = 0;
-                Packet.length = 7 + szBuffer[4];
+                short length;
+                memcpy(&length, szBuffer + 4, 2);
+                Packet.length = 7 + length;
                 Packet.unitId = 0;
                 Packet.functionCode = 67;
                 Packet.data[0] = 'H';
@@ -160,8 +162,8 @@ int main() {
                 Packet.data[4] = 'o';
                 Packet.data[5] = ',';
                 Packet.data[6] = ' ';
-                memcpy((char*)&Packet + 15, szBuffer + 8, szBuffer[4]);
-                Packet.data[7 + szBuffer[4]] = '\0';
+                memcpy((char*)&Packet + 15, szBuffer + 8, length);
+                Packet.data[7 + length] = '\0';
 
                 send(clientSock, (char*)&Packet, 30, 0);
             } else {
