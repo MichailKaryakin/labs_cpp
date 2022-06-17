@@ -37,7 +37,7 @@ int main() {
         char szBuffer[30] = {0};
 
         // массив пакета протокола
-        packet Packet;
+        packet Packet{};
         Packet.transactionId = 0;
         Packet.protocolId = 0;
         Packet.length = 1;
@@ -80,7 +80,7 @@ int main() {
         char szBuffer[30] = {0};
 
         // массив пакета протокола
-        packet Packet;
+        packet Packet{};
         Packet.transactionId = 0;
         Packet.protocolId = 0;
         Packet.length = 7;
@@ -135,7 +135,7 @@ int main() {
         char szBuffer[30] = {0};
 
         // пакет протокола
-        packet Packet;
+        packet Packet{};
         Packet.transactionId = 0;
         Packet.protocolId = 0;
         Packet.length = 2;

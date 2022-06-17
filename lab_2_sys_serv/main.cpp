@@ -26,7 +26,7 @@ int main() {
         SOCKET servSock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 
         // Привязываем сокет
-        sockaddr_in sockAddr;
+        sockaddr_in sockAddr{};
         memset(&sockAddr, 0, sizeof(sockAddr)); // Каждый байт заполняется 0
         sockAddr.sin_family = PF_INET; // Использовать IPv4-адрес
         sockAddr.sin_addr.s_addr = inet_addr("127.0.0.1"); // Определенный IP-адрес
@@ -50,7 +50,7 @@ int main() {
             recv(clientSock, szBuffer, 30, 0);
 
             if (szBuffer[7] == 'A') {
-                packet Packet;
+                packet Packet{};
                 Packet.transactionId = 0;
                 Packet.protocolId = 0;
                 Packet.length = 20;
@@ -80,7 +80,7 @@ int main() {
 
                 send(clientSock, (char*)&Packet, 30, 0);
             } else {
-                packet Packet;
+                packet Packet{};
                 Packet.transactionId = 0;
                 Packet.protocolId = 0;
                 Packet.length = 12;
@@ -147,7 +147,7 @@ int main() {
             recv(clientSock, szBuffer, 30, 0);
 
             if (szBuffer[7] == 'C') {
-                packet Packet;
+                packet Packet{};
                 Packet.transactionId = 0;
                 Packet.protocolId = 0;
                 short length;
@@ -167,7 +167,7 @@ int main() {
 
                 send(clientSock, (char*)&Packet, 30, 0);
             } else {
-                packet Packet;
+                packet Packet{};
                 Packet.transactionId = 0;
                 Packet.protocolId = 0;
                 Packet.length = 12;
@@ -238,17 +238,17 @@ int main() {
                 char secondNumber = szBuffer[9];
                 char sum = firstNumber + secondNumber;
 
-                packet Packet;
+                packet Packet{};
                 Packet.transactionId = 0;
                 Packet.protocolId = 0;
-                Packet.length = 2;
+                Packet.length = 1;
                 Packet.unitId = 0;
                 Packet.functionCode = 69;
                 Packet.data[0] = sum;
 
                 send(clientSock, (char*)&Packet, 30, 0);
             } else {
-                packet Packet;
+                packet Packet{};
                 Packet.transactionId = 0;
                 Packet.protocolId = 0;
                 Packet.length = 12;

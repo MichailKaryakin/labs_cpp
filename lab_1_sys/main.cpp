@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
     handle = hid_open(0x1234, 0x0001, nullptr);
     if (!handle) {
         printf("unable to open device\n");
-        return 1;
+        return 0;
     }
 
     // Читаем строку производителя
@@ -163,14 +163,197 @@ int main(int argc, char* argv[]) {
     // Исполнение команды, сообщение на клиент
     if (szBuffer[7] == 'G') {
         // Кнопки
+        res = hid_get_feature_report(handle, buf, sizeof(buf));
+        if (res < 0) {
+            printf("Unable to get a feature report.\n");
+            printf("%ls", hid_error(handle));
+
+            packet Packet{};
+            Packet.transactionId = 0;
+            Packet.protocolId = 0;
+            Packet.length = 5;
+            Packet.unitId = 0;
+            Packet.functionCode = 01;
+            Packet.data[0] = 'e';
+            Packet.data[1] = 'r';
+            Packet.data[2] = 'r';
+            Packet.data[3] = 'o';
+            Packet.data[4] = 'r';
+            Packet.data[5] = '\0';
+
+            send(clientSock, (char*)&Packet, 30, 0);
+        } else {
+            printf("Feature Report\n   ");
+            for (int i = 0; i < res; i++)
+                printf("%02hhx ", buf[i]);
+            printf("\n");
+
+            // Сообщение на клиент
+            packet Packet{};
+            Packet.transactionId = 0;
+            Packet.protocolId = 0;
+            Packet.length = 1;
+            Packet.unitId = 0;
+            Packet.functionCode = 71;
+            memcpy((short*)&Packet + 8, buf + 1, 1);
+
+            send(clientSock, (char*)&Packet, 30, 0);
+        }
     } else if (szBuffer[7] == 'H') {
         // Элемент
+        res = hid_get_feature_report(handle, buf, sizeof(buf));
+        if (res < 0) {
+            printf("Unable to get a feature report.\n");
+            printf("%ls", hid_error(handle));
+
+            packet Packet{};
+            Packet.transactionId = 0;
+            Packet.protocolId = 0;
+            Packet.length = 5;
+            Packet.unitId = 0;
+            Packet.functionCode = 01;
+            Packet.data[0] = 'e';
+            Packet.data[1] = 'r';
+            Packet.data[2] = 'r';
+            Packet.data[3] = 'o';
+            Packet.data[4] = 'r';
+            Packet.data[5] = '\0';
+
+            send(clientSock, (char*)&Packet, 30, 0);
+        } else {
+            printf("Feature Report\n   ");
+            short value;
+            memcpy(&value, buf + 1, 2);
+            printf("%hu", value);
+
+            // Сообщение на клиент
+            packet Packet{};
+            Packet.transactionId = 0;
+            Packet.protocolId = 0;
+            Packet.length = 2;
+            Packet.unitId = 0;
+            Packet.functionCode = 72;
+            memcpy((short*)&Packet + 8, &value, 2);
+
+            send(clientSock, (char*)&Packet, 30, 0);
+        }
     } else if (szBuffer[7] == 'I') {
         // Лампочки
+        res = hid_send_feature_report(handle, buf, 7);
+        if (res == -1) {
+            printf("hid_write error.\n");
+
+            packet Packet{};
+            Packet.transactionId = 0;
+            Packet.protocolId = 0;
+            Packet.length = 5;
+            Packet.unitId = 0;
+            Packet.functionCode = 01;
+            Packet.data[0] = 'e';
+            Packet.data[1] = 'r';
+            Packet.data[2] = 'r';
+            Packet.data[3] = 'o';
+            Packet.data[4] = 'r';
+            Packet.data[5] = '\0';
+
+            send(clientSock, (char*)&Packet, 30, 0);
+
+            // Закрываем сокет
+            closesocket(clientSock);
+            closesocket(servSock);
+
+            // Прекращаем использование DLL
+            WSACleanup();
+
+            return 0;
+        }
+
+        // Сообщение на клиент
+        packet Packet{};
+        Packet.transactionId = 0;
+        Packet.protocolId = 0;
+        Packet.length = 4;
+        Packet.unitId = 0;
+        Packet.functionCode = 73;
+        Packet.data[0] = 'd';
+        Packet.data[1] = 'o';
+        Packet.data[2] = 'n';
+        Packet.data[3] = 'e';
+
+        send(clientSock, (char*)&Packet, 30, 0);
     } else if (szBuffer[7] == 'J') {
         // Пиксели
+        for (int i = 0; i < buf[1]; i++) {
+            for (int j = 0; j < buf[2]; i++) {
+                res = hid_send_feature_report(handle, buf, 4);
+                if (res == -1) {
+                    printf("hid_write error.\n");
+
+                    packet Packet{};
+                    Packet.transactionId = 0;
+                    Packet.protocolId = 0;
+                    Packet.length = 5;
+                    Packet.unitId = 0;
+                    Packet.functionCode = 01;
+                    Packet.data[0] = 'e';
+                    Packet.data[1] = 'r';
+                    Packet.data[2] = 'r';
+                    Packet.data[3] = 'o';
+                    Packet.data[4] = 'r';
+                    Packet.data[5] = '\0';
+
+                    send(clientSock, (char*)&Packet, 30, 0);
+
+                    // Закрываем сокет
+                    closesocket(clientSock);
+                    closesocket(servSock);
+
+                    // Прекращаем использование DLL
+                    WSACleanup();
+
+                    return 0;
+                }
+            }
+        }
+
+        // Сообщение на клиент
+        packet Packet{};
+        Packet.transactionId = 0;
+        Packet.protocolId = 0;
+        Packet.length = 4;
+        Packet.unitId = 0;
+        Packet.functionCode = 74;
+        Packet.data[0] = 'd';
+        Packet.data[1] = 'o';
+        Packet.data[2] = 'n';
+        Packet.data[3] = 'e';
+        Packet.data[4] = '\0';
+
+        send(clientSock, (char*)&Packet, 30, 0);
     } else {
         // Ошибка
+        // Сообщение на клиент
+        packet Packet{};
+        Packet.transactionId = 0;
+        Packet.protocolId = 0;
+        Packet.length = 12;
+        Packet.unitId = 0;
+        Packet.functionCode = 01;
+        Packet.data[0] = 'i';
+        Packet.data[1] = 'n';
+        Packet.data[2] = 'v';
+        Packet.data[3] = 'a';
+        Packet.data[4] = 'l';
+        Packet.data[5] = 'i';
+        Packet.data[6] = 'd';
+        Packet.data[7] = ' ';
+        Packet.data[8] = 'c';
+        Packet.data[9] = 'o';
+        Packet.data[10] = 'd';
+        Packet.data[11] = 'e';
+        Packet.data[12] = '\0';
+
+        send(clientSock, (char*)&Packet, 30, 0);
     }
 
     // Закрываем сокет
