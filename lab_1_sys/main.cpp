@@ -301,8 +301,7 @@ int main(int argc, char* argv[]) {
 
         send(clientSock, (char*)&Packet, 30, 0);
     } else {
-        // Ошибка
-        // Сообщение на клиент
+        // Сообщение об ошибке
         packet Packet{};
         Packet.transactionId = 0;
         Packet.protocolId = 0;
