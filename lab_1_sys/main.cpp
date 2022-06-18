@@ -94,41 +94,6 @@ int main(int argc, char* argv[]) {
         printf("Unable to read indexed string 1\n");
     printf("Indexed String 1: %ls\n", wStr);
 
-    /*
-    // Подготовка буфера для команд
-    memset(buf, 0x00, sizeof(buf));
-    buf[0] = 0x01;
-    buf[1] = 0x81;
-
-    // Лампочки
-    buf[0] = 0x02; // descriptor number
-    buf[1] = 0xff; //
-    buf[2] = 0xff; // 2 byte = uint16_t = power of light color 1
-    buf[3] = 0x00; //
-    buf[4] = 0x00; // 2 byte = uint16_t = power of light color 2
-    buf[5] = 0xff; //
-    buf[6] = 0xff; // 2 byte = uint16_t = power of light color 3
-
-    res = hid_send_feature_report(handle, buf, 7); // send report, 7 byte
-    if (res == -1) {
-        printf("hid_write error.\n");
-    }
-
-    // Кнопки
-    buf[0] = 0x1;
-    res = hid_get_feature_report(handle, buf, sizeof(buf));
-    if (res < 0) {
-        printf("Unable to get a feature report.\n");
-        printf("%ls", hid_error(handle));
-    } else {
-        // Print out the returned buffer.
-        printf("Feature Report\n   ");
-        for (int i = 0; i < res; i++)
-            printf("%02hhx ", buf[i]);
-        printf("\n");
-    }
-    */
-
     // Подготовка сокета
     WSADATA wsaData;
     WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -196,6 +161,7 @@ int main(int argc, char* argv[]) {
             Packet.unitId = 0;
             Packet.functionCode = 71;
             memcpy((short*)&Packet + 8, buf + 1, 1);
+            Packet.data[1] = '\0';
 
             send(clientSock, (char*)&Packet, 30, 0);
         }
@@ -234,6 +200,7 @@ int main(int argc, char* argv[]) {
             Packet.unitId = 0;
             Packet.functionCode = 72;
             memcpy((short*)&Packet + 8, &value, 2);
+            Packet.data[2] = '\0';
 
             send(clientSock, (char*)&Packet, 30, 0);
         }
@@ -279,12 +246,15 @@ int main(int argc, char* argv[]) {
         Packet.data[1] = 'o';
         Packet.data[2] = 'n';
         Packet.data[3] = 'e';
+        Packet.data[4] = '\0';
 
         send(clientSock, (char*)&Packet, 30, 0);
     } else if (szBuffer[7] == 'J') {
         // Пиксели
-        for (int i = 0; i < buf[1]; i++) {
-            for (int j = 0; j < buf[2]; i++) {
+        for (int i = 0; i < 640; i++) {
+            for (int j = 0; j < 248; i++) {
+                buf[1] = i;
+                buf[2] = j;
                 res = hid_send_feature_report(handle, buf, 4);
                 if (res == -1) {
                     printf("hid_write error.\n");
