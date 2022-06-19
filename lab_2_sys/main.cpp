@@ -203,7 +203,7 @@ int main() {
 
             // вывод сообщения с сервера
             if (szBuffer[7] == 'G') {
-                printf("Message from server: %02hhx\n", *(szBuffer + 8));
+                printf("Message from server: %d\n", *(szBuffer + 8));
             } else {
                 printf("Message from server: %s\n", szBuffer + 8);
             }
@@ -347,7 +347,7 @@ int main() {
             Packet.data[2] = 0;
             // выбор цвета пользователем
             int color = 0;
-            puts("pick the color: 0 - green, 1 - black");
+            puts("pick the color");
             cin >> color;
             Packet.data[3] = color;
             Packet.data[4] = '\0';
