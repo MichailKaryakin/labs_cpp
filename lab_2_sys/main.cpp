@@ -352,6 +352,8 @@ int main() {
             Packet.data[3] = color;
             Packet.data[4] = '\0';
 
+            printf("Message from server: %s\n", "done");
+
             // отправка на сервер и получение ответа
             send(sock, (char*) &Packet, 30, 0);
             recv(sock, szBuffer, 30, 0);
