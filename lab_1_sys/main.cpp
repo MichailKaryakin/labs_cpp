@@ -147,7 +147,7 @@ int main(int argc, char* argv[]) {
                 Packet.data[4] = 'r';
                 Packet.data[5] = '\0';
 
-                send(clientSock, (char*)&Packet, 30, 0);
+                send(clientSock, (char*) &Packet, 30, 0);
             } else {
                 printf("Feature Report\n   ");
                 printf("%2d\n", buf[1]);
@@ -159,10 +159,10 @@ int main(int argc, char* argv[]) {
                 Packet.length = 1;
                 Packet.unitId = 0;
                 Packet.functionCode = 71;
-                memcpy((char*)&Packet + 8, buf + 1, 1);
+                memcpy((char*) &Packet + 8, buf + 1, 1);
                 Packet.data[1] = '\0';
 
-                send(clientSock, (char*)&Packet, 30, 0);
+                send(clientSock, (char*) &Packet, 30, 0);
             }
         } else if (szBuffer[7] == 'H') {
             // Элемент
@@ -184,7 +184,7 @@ int main(int argc, char* argv[]) {
                 Packet.data[4] = 'r';
                 Packet.data[5] = '\0';
 
-                send(clientSock, (char*)&Packet, 30, 0);
+                send(clientSock, (char*) &Packet, 30, 0);
             } else {
                 printf("Feature Report\n   ");
                 short value;
@@ -198,10 +198,10 @@ int main(int argc, char* argv[]) {
                 Packet.length = 2;
                 Packet.unitId = 0;
                 Packet.functionCode = 72;
-                memcpy((char*)&Packet + 8, &value, 2);
+                memcpy((char*) &Packet + 8, &value, 2);
                 Packet.data[2] = '\0';
 
-                send(clientSock, (char*)&Packet, 30, 0);
+                send(clientSock, (char*) &Packet, 30, 0);
             }
         } else if (szBuffer[7] == 'I') {
             // Лампочки
@@ -222,7 +222,7 @@ int main(int argc, char* argv[]) {
                 Packet.data[4] = 'r';
                 Packet.data[5] = '\0';
 
-                send(clientSock, (char*)&Packet, 30, 0);
+                send(clientSock, (char*) &Packet, 30, 0);
             }
 
             // Сообщение на клиент
@@ -238,7 +238,7 @@ int main(int argc, char* argv[]) {
             Packet.data[3] = 'e';
             Packet.data[4] = '\0';
 
-            send(clientSock, (char*)&Packet, 30, 0);
+            send(clientSock, (char*) &Packet, 30, 0);
         } else if (szBuffer[7] == 'J') {
             // Сообщение на клиент
             packet Packet{};
@@ -275,7 +275,7 @@ int main(int argc, char* argv[]) {
                 }
             }
 
-            send(clientSock, (char*)&Packet, 30, 0);
+            send(clientSock, (char*) &Packet, 30, 0);
         } else {
             // Сообщение об ошибке
             packet Packet{};
@@ -298,7 +298,7 @@ int main(int argc, char* argv[]) {
             Packet.data[11] = 'e';
             Packet.data[12] = '\0';
 
-            send(clientSock, (char*)&Packet, 30, 0);
+            send(clientSock, (char*) &Packet, 30, 0);
         }
     }
 
