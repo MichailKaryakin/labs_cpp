@@ -1,4 +1,3 @@
-#include <winnt.h>
 #include "menu.h"
 
 void Menu::get_text_and_rect(SDL_Renderer* renderer, int x, int y, const std::string& text, TTF_Font* font,
@@ -142,5 +141,3 @@ bool Menu::symbolCondition(Input& input) {
         return false;
     }
 }
-
-
